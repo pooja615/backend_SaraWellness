@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sara Wellness | Contact</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        .chatframe{
+            width: 100%;
+            min-height: 90vh;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <iframe src="./chat/index.html" class="chatframe"></iframe>
+
+    <!-- Footer -->
+    <footer>
+  <div class="container">
+    <div class="footer-container">
+
+      <div class="footer-col">
+        <h4>Sara Wellness</h4>
+        <p>
+          Holistic approaches to wellness that integrate physical health with mental wellbeing
+          for a balanced, fulfilling life.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="weight-loss.html">Weight Loss</a></li>
+          <li><a href="hair-loss.html">Hair Loss</a></li>
+          <li><a href="skin-care.html">Skin Care</a></li>
+          <li><a href="stress-management.html">Stress Management</a></li>
+          <li><a href="pain-relief.html">Pain Relief</a></li>
+          <li><a href="personal-problems.html">Personal Problems</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p>Subscribe to our newsletter for wellness tips and updates.</p>
+        <form onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
+          <input type="email" placeholder="Your Email" required>
+          <button type="submit" class="btn">Subscribe</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="copyright">
+      <p>&copy; 2023 Sara Wellness. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="./script.js"></script>
+
+    <!-- ✅ EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        // ✅ Put your real EmailJS keys here
+        const EMAILJS_PUBLIC_KEY = "W9o5adC8TSGO-j_UZ";
+        const EMAILJS_SERVICE_ID = "service_4ib9evs";
+        const EMAILJS_TEMPLATE_ID = "template_cvw3dxd";
+
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+
+        const form = document.getElementById("contact-form");
+        const btn = document.getElementById("send-btn");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // Optional: quick debug
+            // console.log("Sending:", Object.fromEntries(new FormData(form).entries()));
+
+            btn.disabled = true;
+            const oldText = btn.textContent;
+            btn.textContent = "Sending...";
+
+            try {
+                // sendForm reads fields by their name="" attributes
+                await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
+
+                alert("✅ Email sent successfully!");
+                form.reset();
+            } catch (err) {
+                console.error(err);
+                alert("❌ Failed to send email. Check EmailJS Allowed Origins and Template variables.");
+            } finally {
+                btn.disabled = false;
+                btn.textContent = oldText;
+            }
+        });
+    </script>
+
+</body>
+
+</html>

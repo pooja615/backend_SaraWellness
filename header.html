@@ -1,0 +1,133 @@
+<!-- ===== Reusable Header (Enhanced) ===== -->
+<header>
+  <div class="container header-container sw-header">
+    <a href="index.html" class="logo">
+      <i class="fas fa-spa"></i>Sara<span>Wellness</span>
+    </a>
+
+    <!-- Mobile toggle -->
+    <button class="sw-burger" id="sw-burger" aria-label="Open menu" aria-expanded="false" type="button">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="sw-nav" id="sw-nav">
+      <ul id="sw-nav-list">
+        <li><a href="index.html" data-nav="home">Home</a></li>
+        <li><a href="services.html" data-nav="services">Services</a></li>
+        <li><a href="about.html" data-nav="about">About</a></li>
+        <li><a href="testimonials.html" data-nav="testimonials">Testimonials</a></li>
+        <li><a href="blog.html" data-nav="blog">Blog</a></li>
+
+        <!-- ✅ NEW Chat page -->
+        <li>
+          <a href="chat.html" data-nav="chat">
+            <i class="fa-solid fa-comments" style="margin-right:6px;"></i>Chat
+          </a>
+        </li>
+
+        <li><a href="contact.html" data-nav="contact">Contact</a></li>
+
+        <!-- Role-based quick link (injected by JS) -->
+        <li id="nav-role-link" style="display:none;"></li>
+
+        <!-- Guest -->
+        <li id="nav-auth-guest"><a href="login.html" data-nav="login">Login</a></li>
+        <li id="nav-auth-guest-2"><a href="register.html" data-nav="register">Register</a></li>
+
+        <!-- Logged-in -->
+        <li id="nav-auth-user" style="display:none;">
+          <a href="#" id="logout-link">Logout</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Page-only styles for header (keeps your style.css intact) -->
+  <style>
+    /* ===== Active Link ===== */
+    .sw-nav a.active {
+      color: #2E8B57;
+      font-weight: 900;
+      position: relative;
+    }
+    .sw-nav a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 100%;
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(46, 139, 87, 0.9);
+    }
+
+    /* ===== Mobile Menu ===== */
+    .sw-header { position: relative; }
+
+    .sw-burger {
+      display: none;
+      width: 46px;
+      height: 42px;
+      border: 1px solid rgba(0,0,0,0.12);
+      background: #fff;
+      border-radius: 12px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px;
+    }
+    .sw-burger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.7);
+      transition: transform .2s ease, opacity .2s ease;
+    }
+    .sw-burger.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .sw-burger.is-open span:nth-child(2) { opacity: 0; }
+    .sw-burger.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    @media (max-width: 900px) {
+      .sw-burger { display: inline-flex; }
+
+      .sw-nav {
+        display: none;
+        width: 100%;
+        margin-top: 12px;
+        background: #fff;
+        border: 1px solid rgba(0,0,0,0.08);
+        border-radius: 16px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        padding: 8px;
+      }
+
+      .sw-nav.open { display: block; }
+
+      .sw-nav ul {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin: 0;
+        padding: 6px;
+      }
+
+      .sw-nav li { width: 100%; }
+
+      .sw-nav a {
+        display: block;
+        padding: 10px 12px;
+        border-radius: 12px;
+      }
+
+      .sw-nav a:hover {
+        background: rgba(46,139,87,0.08);
+      }
+
+      .sw-nav a.active::after { display: none; }
+      .sw-nav a.active { background: rgba(46,139,87,0.12); }
+    }
+  </style>
+</header>
+<!-- ===== End Header ===== -->

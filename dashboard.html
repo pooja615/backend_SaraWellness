@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sara Wellness | Admin Dashboard</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./style.css">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, rgba(13, 110, 253, 0.06), rgba(255, 255, 255, 1));
+      min-height: 100vh;
+    }
+
+    .wrap { padding: 28px 0 70px; }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 18px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      margin-bottom: 18px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .pill {
+      font-size: 11px;
+      font-weight: 900;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(13, 110, 253, 0.10);
+      color: #0b4db3;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      align-items: center;
+    }
+
+    .filters input, .filters select {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      outline: none;
+      min-width: 240px;
+      background: #fff;
+    }
+
+    .filters input:focus, .filters select:focus {
+      border-color: rgba(13, 110, 253, 0.65);
+      box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.12);
+    }
+
+    .manager-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 1100px) { .manager-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 700px) { .manager-grid { grid-template-columns: 1fr; } }
+
+    .manager-card {
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .manager-img {
+      height: 120px;
+      background: rgba(13, 110, 253, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .manager-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .manager-body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .pill2 {
+      font-size: 11px;
+      font-weight: 900;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(46, 139, 87, 0.10);
+      color: #1e6a42;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill2.pending {
+      background: rgba(255, 193, 7, 0.18);
+      color: #a06a00;
+    }
+
+    .small-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+    .small-actions .btn { padding: 8px 10px; font-size: 13px; }
+
+    .truncate-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .small { color: #666; font-size: 13px; line-height: 1.5; margin-top: 8px; }
+
+    .alert {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      border: 1px solid transparent;
+      line-height: 1.4;
+    }
+
+    .alert.success {
+      display: block;
+      background: rgba(46, 139, 87, 0.10);
+      border-color: rgba(46, 139, 87, 0.30);
+      color: #1e6a42;
+    }
+
+    .alert.error {
+      display: block;
+      background: rgba(220, 53, 69, 0.08);
+      border-color: rgba(220, 53, 69, 0.25);
+      color: #b02a37;
+    }
+
+    .alert i { margin-right: 8px; }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(46, 139, 87, 0.6);
+      color: #2E8B57;
+    }
+
+    /* ======= Modal (for Blog Edit) ======= */
+    .modal-backdrop{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.55);
+      z-index:9999;
+      padding:20px;
+      overflow:auto;
+    }
+    .modal{
+      background:#fff;
+      max-width:900px;
+      width:100%;
+      margin: 6vh auto;
+      border-radius:16px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+      border:1px solid rgba(0,0,0,0.08);
+      overflow:hidden;
+    }
+    .modal-head{
+      padding:14px 16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      border-bottom:1px solid rgba(0,0,0,0.08);
+      background:rgba(13,110,253,0.06);
+    }
+    .modal-title{
+      margin:0;
+      font-size:18px;
+      font-weight:900;
+      color:#222;
+      line-height:1.2;
+    }
+    .close-btn{
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      font-size:18px;
+      padding:8px 10px;
+      border-radius:10px;
+    }
+    .close-btn:hover{ background:rgba(0,0,0,0.06); }
+
+    .modal-body{ padding:16px; }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width: 850px){ .form-grid{ grid-template-columns:1fr; } }
+
+    .field{ display:flex; flex-direction:column; gap:8px; }
+    .field label{ font-size:14px; color:#333; font-weight:800; }
+    .field input, .field select, .field textarea{
+      padding:12px;
+      border-radius:10px;
+      border:1px solid rgba(0,0,0,0.12);
+      outline:none;
+      background:#fff;
+      transition:.2s ease;
+    }
+    .field textarea{ min-height:140px; resize:vertical; grid-column:1/-1; }
+    .field input:focus, .field select:focus, .field textarea:focus{
+      border-color: rgba(13, 110, 253, 0.65);
+      box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.12);
+    }
+
+    .modal-actions{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="header-placeholder"></div>
+
+  <section class="wrap">
+    <div class="container">
+
+      <!-- DASH HEADER -->
+      <div class="card">
+        <div class="topbar">
+          <div>
+            <h2 style="margin:0;">Admin Dashboard</h2>
+            <p style="margin:6px 0 0; color:#555;">Manage testimonials, blogs and users.</p>
+            <div class="filters">
+              <a class="btn" href="add-blog.html">
+                <i class="fa-solid fa-plus" style="margin-right:8px;"></i> Add New Blog
+              </a>
+              <button class="btn btn-outline" id="logoutBtn" type="button">
+                <i class="fa-solid fa-arrow-right-from-bracket" style="margin-right:8px;"></i> Logout
+              </button>
+            </div>
+          </div>
+          <div class="pill">
+            <i class="fa-solid fa-shield-halved"></i> Admin Only
+          </div>
+        </div>
+        <div class="small">Tip: If you changed role in DB, logout & login again.</div>
+      </div>
+
+      <!-- TESTIMONIALS MANAGER -->
+      <div class="card">
+        <div class="topbar">
+          <div>
+            <h3 style="margin:0;">Manage Testimonials</h3>
+            <p class="small" style="margin:6px 0 0;">Only admin can approve/disapprove and delete testimonials.</p>
+
+            <div class="filters">
+              <input id="tSearch" type="text" placeholder="Search name/service/content...">
+              <select id="tFilter">
+                <option value="all">All</option>
+                <option value="approved">Approved</option>
+                <option value="pending">Pending</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn" id="tRefresh" type="button">
+            <i class="fa-solid fa-rotate" style="margin-right:8px;"></i> Refresh
+          </button>
+        </div>
+
+        <div id="tAlert" class="alert"></div>
+        <div id="tStatus" class="small">Loading...</div>
+        <div id="tGrid" class="manager-grid"></div>
+      </div>
+
+      <!-- BLOGS MANAGER -->
+      <div class="card">
+        <div class="topbar">
+          <div>
+            <h3 style="margin:0;">Manage Blogs</h3>
+            <p class="small" style="margin:6px 0 0;">Publish/unpublish, edit, delete.</p>
+
+            <div class="filters">
+              <input id="bSearch" type="text" placeholder="Search title/category/content...">
+              <select id="bFilter">
+                <option value="all">All</option>
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn" id="bRefresh" type="button">
+            <i class="fa-solid fa-rotate" style="margin-right:8px;"></i> Refresh
+          </button>
+        </div>
+
+        <div id="bAlert" class="alert"></div>
+        <div id="bStatus" class="small">Loading...</div>
+        <div id="bGrid" class="manager-grid"></div>
+      </div>
+
+      <!-- USERS MANAGER -->
+      <div class="card">
+        <div class="topbar">
+          <div>
+            <h3 style="margin:0;">Manage Users</h3>
+            <p class="small" style="margin:6px 0 0;">View users, change roles, delete users.</p>
+
+            <div class="filters">
+              <input id="uSearch" type="text" placeholder="Search name/email...">
+              <select id="uFilter">
+                <option value="all">All</option>
+                <option value="admin">Admins</option>
+                <option value="user">Users</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn" id="uRefresh" type="button">
+            <i class="fa-solid fa-rotate" style="margin-right:8px;"></i> Refresh
+          </button>
+        </div>
+
+        <div id="uAlert" class="alert"></div>
+        <div id="uStatus" class="small">Loading...</div>
+        <div id="uGrid" class="manager-grid"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======= Edit Blog Modal (Admin) ======= -->
+  <div id="editBlogBackdrop" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <h3 class="modal-title"><i class="fa-solid fa-pen-to-square" style="margin-right:8px;"></i> Edit Blog</h3>
+        <button class="close-btn" id="closeEditBlog" title="Close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="editBlogAlert" class="alert"></div>
+
+        <form id="editBlogForm">
+          <input type="hidden" id="editBlogId" />
+
+          <div class="form-grid">
+            <div class="field" style="grid-column:1/-1;">
+              <label for="editTitle">Title *</label>
+              <input id="editTitle" type="text" required>
+            </div>
+
+            <div class="field">
+              <label for="editCategory">Category *</label>
+              <input id="editCategory" type="text" required>
+            </div>
+
+            <div class="field">
+              <label for="editPublished">Published</label>
+              <select id="editPublished">
+                <option value="true">Published</option>
+                <option value="false">Draft</option>
+              </select>
+            </div>
+
+            <div class="field" style="grid-column:1/-1;">
+              <label for="editExcerpt">Excerpt (optional)</label>
+              <textarea id="editExcerpt" placeholder="Short summary..."></textarea>
+            </div>
+
+            <div class="field" style="grid-column:1/-1;">
+              <label for="editContent">Content *</label>
+              <textarea id="editContent" required></textarea>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn" type="submit" id="saveBlogBtn">
+              <i class="fa-solid fa-floppy-disk" style="margin-right:8px;"></i> Save Changes
+            </button>
+
+            <span class="small">Only admin can update blogs.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+  <div class="container">
+    <div class="footer-container">
+
+      <div class="footer-col">
+        <h4>Sara Wellness</h4>
+        <p>
+          Holistic approaches to wellness that integrate physical health with mental wellbeing
+          for a balanced, fulfilling life.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="weight-loss.html">Weight Loss</a></li>
+          <li><a href="hair-loss.html">Hair Loss</a></li>
+          <li><a href="skin-care.html">Skin Care</a></li>
+          <li><a href="stress-management.html">Stress Management</a></li>
+          <li><a href="pain-relief.html">Pain Relief</a></li>
+          <li><a href="personal-problems.html">Personal Problems</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p>Subscribe to our newsletter for wellness tips and updates.</p>
+        <form onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
+          <input type="email" placeholder="Your Email" required>
+          <button type="submit" class="btn">Subscribe</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="copyright">
+      <p>&copy; 2023 Sara Wellness. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+  <script>
+    const API_BASE = "http://localhost:5000";
+
+    function getToken() { return localStorage.getItem("token"); }
+    function getUser() { try { return JSON.parse(localStorage.getItem("user") || "null"); } catch { return null; } }
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function resolveImageUrl(img) {
+      if (!img) return "";
+      let s = String(img).trim();
+      if (!s) return "";
+      s = s.replaceAll("\\", "/");
+      if (s.startsWith("http://") || s.startsWith("https://")) return s;
+      const idx = s.toLowerCase().indexOf("/uploads/");
+      if (idx !== -1) s = s.slice(idx);
+      if (s.toLowerCase().startsWith("uploads/")) s = "/" + s;
+      return s.startsWith("/") ? `${API_BASE}${s}` : `${API_BASE}/${s}`;
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return "";
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return "";
+      return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+    }
+
+    function stars(rating) {
+      const r = Math.max(1, Math.min(5, Number(rating || 0)));
+      let out = "";
+      for (let i = 1; i <= 5; i++) out += i <= r ? "★" : "☆";
+      return out;
+    }
+
+    function showAlert(el, type, message) {
+      el.className = `alert ${type}`;
+      el.innerHTML = type === "success"
+        ? `<i class="fa-solid fa-circle-check"></i>${message}`
+        : `<i class="fa-solid fa-triangle-exclamation"></i>${message}`;
+      el.style.display = "block";
+    }
+
+    function hideAlert(el) {
+      el.style.display = "none";
+      el.innerHTML = "";
+      el.className = "alert";
+    }
+
+    // ---- Guard (Admin only)
+    (function guard() {
+      const token = getToken();
+      const user = getUser();
+      if (!token || !user) { window.location.href = "login.html"; return; }
+      if ((user.role || "").toLowerCase() !== "admin") { window.location.href = "profile.html"; return; }
+    })();
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "login.html";
+    });
+
+    // =========================
+    // Testimonials
+    // =========================
+    const tGrid = document.getElementById("tGrid");
+    const tStatus = document.getElementById("tStatus");
+    const tAlert = document.getElementById("tAlert");
+    const tSearch = document.getElementById("tSearch");
+    const tFilter = document.getElementById("tFilter");
+    const tRefresh = document.getElementById("tRefresh");
+
+    let allT = [];
+
+    function statusPill(approved) {
+      return approved
+        ? `<span class="pill2"><i class="fa-solid fa-circle-check"></i> Approved</span>`
+        : `<span class="pill2 pending"><i class="fa-solid fa-clock"></i> Pending Approval</span>`;
+    }
+
+    function renderT(list) {
+      tGrid.innerHTML = "";
+
+      if (!list.length) { tStatus.textContent = "No testimonials found."; return; }
+      tStatus.textContent = `${list.length} testimonial(s).`;
+
+      list.forEach(t => {
+        const imgUrl = resolveImageUrl(t.image);
+        const approved = !!t.approved;
+
+        const card = document.createElement("div");
+        card.className = "manager-card";
+
+        card.innerHTML = `
+          <div class="manager-img">
+            ${imgUrl
+              ? `<img src="${escapeHtml(imgUrl)}" alt="testimonial"
+                   onerror="this.parentElement.innerHTML='<i class=\\'fa-solid fa-user\\' style=\\'font-size:34px; color:#0b4db3;\\'></i>'">`
+              : `<i class="fa-solid fa-user" style="font-size:34px; color:#0b4db3;"></i>`
+            }
+          </div>
+
+          <div class="manager-body">
+            <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center;">
+              <div style="font-weight:900; color:#222;">${escapeHtml(t.name || "Anonymous")}</div>
+              ${statusPill(approved)}
+            </div>
+
+            <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center;">
+              <div class="pill2">${escapeHtml(t.service || "Service")}</div>
+              <div style="font-weight:900; color:#f5a524;">${stars(t.rating)} <span style="color:#666;">(${t.rating || ""})</span></div>
+            </div>
+
+            <div class="truncate-3" style="color:#444; font-size:13px; line-height:1.55;">${escapeHtml(t.content || "")}</div>
+            <div style="font-size:12px; color:#777;">${t.createdAt ? "Created: " + escapeHtml(formatDate(t.createdAt)) : ""}</div>
+
+            <div class="small-actions">
+              ${
+                approved
+                ? `<button class="btn" type="button" data-action="disapprove" data-id="${t._id}" style="background:#ffc107; color:#333;">
+                     <i class="fa-solid fa-ban" style="margin-right:6px;"></i> Disapprove
+                   </button>`
+                : `<button class="btn" type="button" data-action="approve" data-id="${t._id}">
+                     <i class="fa-solid fa-check" style="margin-right:6px;"></i> Approve
+                   </button>`
+              }
+
+              <!-- ✅ DELETE TESTIMONIAL -->
+              <button class="btn" type="button" data-action="delete" data-id="${t._id}" style="background:#dc3545;">
+                <i class="fa-solid fa-trash" style="margin-right:6px;"></i> Delete
+              </button>
+            </div>
+          </div>
+        `;
+
+        tGrid.appendChild(card);
+      });
+    }
+
+    function applyTFilters() {
+      const q = (tSearch.value || "").trim().toLowerCase();
+      const f = tFilter.value;
+
+      let list = [...allT];
+      if (f === "approved") list = list.filter(x => x.approved === true);
+      if (f === "pending") list = list.filter(x => x.approved === false);
+
+      if (q) {
+        list = list.filter(x =>
+          (x.name || "").toLowerCase().includes(q) ||
+          (x.service || "").toLowerCase().includes(q) ||
+          (x.content || "").toLowerCase().includes(q)
+        );
+      }
+
+      renderT(list);
+    }
+
+    async function fetchT() {
+      hideAlert(tAlert);
+      tStatus.textContent = "Loading...";
+      tGrid.innerHTML = "";
+
+      try {
+        const res = await fetch(`${API_BASE}/api/testimonials/admin/all`, {
+          headers: { Authorization: `Bearer ${getToken()}` }
+        });
+        let data = {};
+        try { data = await res.json(); } catch { }
+
+        if (!res.ok) {
+          showAlert(tAlert, "error", data?.message || `Failed (HTTP ${res.status})`);
+          tStatus.textContent = "Unable to load.";
+          return;
+        }
+
+        allT = Array.isArray(data) ? data : (data.data || data.testimonials || []);
+        allT.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+        applyTFilters();
+      } catch {
+        showAlert(tAlert, "error", "Server not reachable.");
+        tStatus.textContent = "Unable to load.";
+      }
+    }
+
+    async function approveT(id) {
+      try {
+        const res = await fetch(`${API_BASE}/api/testimonials/${id}/approve`, {
+          method: "PATCH",
+          headers: { Authorization: `Bearer ${getToken()}` }
+        });
+        let data = {};
+        try { data = await res.json(); } catch { }
+        if (!res.ok) { showAlert(tAlert, "error", data?.message || "Approve failed."); return; }
+        showAlert(tAlert, "success", "Approved.");
+        fetchT();
+      } catch {
+        showAlert(tAlert, "error", "Server not reachable.");
+      }
+    }
+
+    async function disapproveT(id) {
+      try {
+        let res = await fetch(`${API_BASE}/api/testimonials/${id}/disapprove`, {
+          method: "PATCH",
+          headers: { Authorization: `Bearer ${getToken()}` }
+        });
+
+        if (!res.ok) {
+          res = await fetch(`${API_BASE}/api/testimonials/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
+            body: JSON.stringify({ approved: false })
+          });
+        }
+
+        let data = {};
+        try { data = await res.json(); } catch { }
+        if (!res.ok) {
+          showAlert(tAlert, "error", data?.message || "Disapprove failed. (Add endpoint /disapprove or allow PATCH {approved:false})");
+          return;
+        }
+
+        showAlert(tAlert, "success", "Disapproved.");
+        fetchT();
+      } catch {
+        showAlert(tAlert, "error", "Server not reachable.");
+      }
+    }
+
+    // ✅ DELETE testimonial: DELETE /api/testimonials/:id
+    async function deleteT(id) {
+      if (!confirm("Delete testimonial permanently?")) return;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/testimonials/${id}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${getToken()}` }
+        });
+
+        let data = {};
+        try { data = await res.json(); } catch { }
+
+        if (!res.ok) {
+          showAlert(tAlert, "error", data?.message || `Delete failed (HTTP ${res.status}).`);
+          return;
+        }
+
+        showAlert(tAlert, "success", "Testimonial deleted.");
+        fetchT();
+      } catch {
+        showAlert(tAlert, "error", "Server not reachable.");
+      }
+    }
+
+    tRefresh.addEventListener("click", fetchT);
+    tSearch.addEventListener("input", applyTFilters);
+    tFilter.addEventListener("change", applyTFilters);
+
+    tGrid.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-action]");
+      if (!btn) return;
+      const action = btn.getAttribute("data-action");
+      const id = btn.getAttribute("data-id");
+      if (action === "approve") approveT(id);
+      if (action === "disapprove") disapproveT(id);
+      if (action === "delete") deleteT(id);
+    });
+
+    // =========================
+    // Blogs (Edit via Modal)
+    // =========================
+    const bGrid = document.getElementById("bGrid");
+    const bStatus = document.getElementById("bStatus");
+    const bAlert = document.getElementById("bAlert");
+    const bSearch = document.getElementById("bSearch");
+    const bFilter = document.getElementById("bFilter");
+    const bRefresh = document.getElementById("bRefresh");
+
+    let allB = [];
+
+    const editBlogBackdrop = document.getElementById("editBlogBackdrop");
+    const closeEditBlog = document.getElementById("closeEditBlog");
+    const editBlogForm = document.getElementById("editBlogForm");
+    const editBlogAlert = document.getElementById("editBlogAlert");
+    const saveBlogBtn = document.getElementById("saveBlogBtn");
+
+    function openEditBlogModal(blog) {
+      hideAlert(editBlogAlert);
+      document.getElementById("editBlogId").value = blog._id || "";
+      document.getElementById("editTitle").value = blog.title || "";
+      document.getElementById("editCategory").value = blog.category || "";
+      document.getElementById("editPublished").value = String(Boolean(blog.published));
+      document.getElementById("editExcerpt").value = blog.excerpt || "";
+      document.getElementById("editContent").value = blog.content || "";
+      editBlogBackdrop.style.display = "block";
+      editBlogBackdrop.setAttribute("aria-hidden", "false");
+    }
+
+    function closeEditBlogModal() {
+      editBlogBackdrop.style.display = "none";
+      editBlogBackdrop.setAttribute("aria-hidden", "true");
+      hideAlert(editBlogAlert);
+    }
+
+    closeEditBlog.addEventListener("click", closeEditBlogModal);
+    editBlogBackdrop.addEventListener("click", (e) => {
+      if (e.target === editBlogBackdrop) closeEditBlogModal();
+    });
+
+    function setSaveBlogLoading(isLoading) {
+      saveBlogBtn.disabled = isLoading;
+      saveBlogBtn.style.opacity = isLoading ? "0.75" : "1";
+      saveBlogBtn.innerHTML = isLoading
+        ? `<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i> Saving...`
+        : `<i class="fa-solid fa-floppy-disk" style="margin-right:8px;"></i> Save Changes`;
+    }
+
+    function renderB(list) {
+      bGrid.innerHTML = "";
+
+      if (!list.length) { bStatus.textContent = "No blogs found."; return; }
+      bStatus.textContent = `${list.length} blog(s).`;
+
+      list.forEach(b => {
+        const imgUrl = resolveImageUrl(b.image);
+        const pub = !!b.published;
+        const excerpt = b.excerpt || (b.content ? (b.content.slice(0, 160) + (b.content.length > 160 ? "..." : "")) : "");
+
+        const card = document.createElement("div");
+        card.className = "manager-card";
+
+        card.innerHTML = `
+          <div class="manager-img">
+            ${imgUrl
+              ? `<img src="${escapeHtml(imgUrl)}" alt="blog"
+                   onerror="this.parentElement.innerHTML='<i class=\\'fa-solid fa-image\\' style=\\'font-size:34px; color:#0b4db3;\\'></i>'">`
+              : `<i class="fa-solid fa-image" style="font-size:34px; color:#0b4db3;"></i>`
+            }
+          </div>
+
+          <div class="manager-body">
+            <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center;">
+              <div style="font-weight:900; color:#222;">${escapeHtml(b.title || "Untitled")}</div>
+              <div class="pill2 ${pub ? "" : "pending"}">${pub ? "PUBLISHED" : "DRAFT"}</div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+              <div class="pill2">${escapeHtml(b.category || "Category")}</div>
+              <div style="font-size:12px; color:#777;">${b.createdAt ? escapeHtml(formatDate(b.createdAt)) : ""}</div>
+            </div>
+
+            <div class="truncate-3" style="color:#444; font-size:13px; line-height:1.55;">${escapeHtml(excerpt)}</div>
+
+            <div class="small-actions">
+              <button class="btn" type="button" data-action="toggle" data-id="${b._id}">
+                <i class="fa-solid fa-bullhorn" style="margin-right:6px;"></i> ${pub ? "Unpublish" : "Publish"}
+              </button>
+
+              <button class="btn btn-outline" type="button" data-action="edit" data-id="${b._id}">
+                <i class="fa-solid fa-pen" style="margin-right:6px;"></i> Edit
+              </button>
+
+              <button class="btn" type="button" data-action="delete" data-id="${b._id}" style="background:#dc3545;">
+                <i class="fa-solid fa-trash" style="margin-right:6px;"></i> Delete
+              </button>
+            </div>
+          </div>
+        `;
+
+        bGrid.appendChild(card);
+      });
+    }
+
+    function applyBFilters() {
+      const q = (bSearch.value || "").trim().toLowerCase();
+      const f = bFilter.value;
+
+      let list = [...allB];
+      if (f === "published") list = list.filter(x => x.published === true);
+      if (f === "draft") list = list.filter(x => x.published === false);
+
+      if (q) {
+        list = list.filter(x => (x.title || "").toLowerCase().includes(q)
+          || (x.category || "").toLowerCase().includes(q)
+          || (x.content || "").toLowerCase().includes(q));
+      }
+
+      renderB(list);
+    }
+
+    async function fetchB() {
+      hideAlert(bAlert);
+      bStatus.textContent = "Loading...";
+      bGrid.innerHTML = "";
+
+      try {
+        const res = await fetch(`${API_BASE}/api/blog/admin/all`, {
+          headers: { Authorization: `Bearer ${getToken()}` }
+        });
+        let data = {};
+        try { data = await res.json(); } catch { }
+
+        if (!res.ok) {
+          showAlert(bAlert, "error", data?.message || `Failed (HTTP ${res.status})`);
+          bStatus.textContent = "Unable to load.";
+          return;
+        }
+
+        allB = Array.isArray(data) ? data : (data.data || data.blogs || []);
+        allB.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+        applyBFilters();
+      } catch {
+        showAlert(bAlert, "error", "Server not reachable.");
+        bStatus.textContent = "Unable to load.";
+      }
+    }
+
+    async function toggleBlog(id) {
+      const b = allB.find(x => x._id === id);
+      if (!b) return;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/blog/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
+          body: JSON.stringify({ published: !b.published })
+        });
+
+        let data = {};
+        try { data = await res.json(); } catch { }
+
+        if (!res.ok) { showAlert(bAlert, "error", data?.message || "Publish toggle failed."); return; }
+        showAlert(bAlert, "success", "Updated.");
+        fetchB();
+      } catch { showAlert(bAlert, "error", "Server not reachable."); }
+    }
+
+    async function deleteBlog(id) {
+      if (!confirm("Delete blog permanently?")) return;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/blog/${id}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${getToken()}` }
+        });
+
+        let data = {};
+        try { data = await res.json(); } catch { }
+
+        if (!res.ok) { showAlert(bAlert, "error", data?.message || "Delete failed."); return; }
+        showAlert(bAlert, "success", "Deleted.");
+        fetchB();
+      } catch { showAlert(bAlert, "error", "Server not reachable."); }
+    }
+
+    function editBlog(id) {
+      const b = allB.find(x => x._id === id);
+      if (!b) return;
+      openEditBlogModal(b);
+    }
+
+    editBlogForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      hideAlert(editBlogAlert);
+
+      const id = document.getElementById("editBlogId").value;
+      const title = document.getElementById("editTitle").value.trim();
+      const category = document.getElementById("editCategory").value.trim();
+      const published = document.getElementById("editPublished").value === "true";
+      const excerpt = document.getElementById("editExcerpt").value.trim();
+      const content = document.getElementById("editContent").value.trim();
+
+      if (!id) { showAlert(editBlogAlert, "error", "Missing blog id."); return; }
+      if (!title || !category || !content) { showAlert(editBlogAlert, "error", "Title, category and content are required."); return; }
+
+      const ex = excerpt || (content.slice(0, 160) + (content.length > 160 ? "..." : ""));
+      const payload = { title, category, content, excerpt: ex, published };
+
+      setSaveBlogLoading(true);
+
+      try {
+        const res = await fetch(`${API_BASE}/api/blog/${encodeURIComponent(id)}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
+          body: JSON.stringify(payload)
+        });
+
+        let data = {};
+        try { data = await res.json(); } catch { }
+
+        if (!res.ok) { showAlert(editBlogAlert, "error", data?.message || "Update failed."); setSaveBlogLoading(false); return; }
+
+        showAlert(editBlogAlert, "success", "Blog updated successfully!");
+        setSaveBlogLoading(false);
+
+        await fetchB();
+        setTimeout(closeEditBlogModal, 650);
+      } catch {
+        showAlert(editBlogAlert, "error", "Server not reachable.");
+        setSaveBlogLoading(false);
+      }
+    });
+
+    bRefresh.addEventListener("click", fetchB);
+    bSearch.addEventListener("input", applyBFilters);
+    bFilter.addEventListener("change", applyBFilters);
+
+    bGrid.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-action]");
+      if (!btn) return;
+      const action = btn.getAttribute("data-action");
+      const id = btn.getAttribute("data-id");
+      if (action === "toggle") toggleBlog(id);
+      if (action === "edit") editBlog(id);
+      if (action === "delete") deleteBlog(id);
+    });
+
+    // =========================
+    // Users (unchanged)
+    // =========================
+    const uGrid = document.getElementById("uGrid");
+    const uStatus = document.getElementById("uStatus");
+    const uAlert = document.getElementById("uAlert");
+    const uSearch = document.getElementById("uSearch");
+    const uFilter = document.getElementById("uFilter");
+    const uRefresh = document.getElementById("uRefresh");
+
+    let allU = [];
+
+    function renderU(list) {
+      uGrid.innerHTML = "";
+      if (!list.length) { uStatus.textContent = "No users found."; return; }
+      uStatus.textContent = `${list.length} user(s).`;
+
+      list.forEach(u => {
+        const card = document.createElement("div");
+        card.className = "manager-card";
+
+        card.innerHTML = `
+          <div class="manager-img" style="height:90px;">
+            <i class="fa-solid fa-user" style="font-size:34px; color:#0b4db3;"></i>
+          </div>
+
+          <div class="manager-body">
+            <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center;">
+              <div style="font-weight:900; color:#222;">${escapeHtml(u.name || "User")}</div>
+              <div class="pill2 ${String(u.role).toLowerCase()==='admin' ? '' : 'pending'}">${escapeHtml(u.role || "user")}</div>
+            </div>
+
+            <div class="truncate-3" style="color:#444; font-size:13px; line-height:1.55;">
+              ${escapeHtml(u.email || "")}
+            </div>
+
+            <div class="small-actions">
+              <button class="btn btn-outline" type="button" data-action="role" data-id="${u._id}">
+                <i class="fa-solid fa-user-gear" style="margin-right:6px;"></i> Change Role
+              </button>
+
+              <button class="btn" type="button" data-action="delete" data-id="${u._id}" style="background:#dc3545;">
+                <i class="fa-solid fa-trash" style="margin-right:6px;"></i> Delete
+              </button>
+            </div>
+          </div>
+        `;
+        uGrid.appendChild(card);
+      });
+    }
+
+    function applyUFilters() {
+      const q = (uSearch.value || "").trim().toLowerCase();
+      const f = uFilter.value;
+
+      let list = [...allU];
+      if (f === "admin") list = list.filter(x => (x.role || "").toLowerCase() === "admin");
+      if (f === "user") list = list.filter(x => (x.role || "").toLowerCase() === "user");
+
+      if (q) list = list.filter(x => (x.name || "").toLowerCase().includes(q) || (x.email || "").toLowerCase().includes(q));
+      renderU(list);
+    }
+
+    async function fetchU() {
+      hideAlert(uAlert);
+      uStatus.textContent = "Loading...";
+      uGrid.innerHTML = "";
+
+      try {
+        const res = await fetch(`${API_BASE}/api/users`, {
+          headers: { Authorization: `Bearer ${getToken()}` }
+        });
+        let data = {};
+        try { data = await res.json(); } catch { }
+
+        if (!res.ok) { showAlert(uAlert, "error", data?.message || `Failed (HTTP ${res.status})`); uStatus.textContent = "Unable to load."; return; }
+
+        allU = Array.isArray(data) ? data : (data.data || data.users || []);
+        applyUFilters();
+      } catch {
+        showAlert(uAlert, "error", "Server not reachable.");
+        uStatus.textContent = "Unable to load.";
+      }
+    }
+
+    async function changeRole(userId) {
+      const u = allU.find(x => x._id === userId);
+      if (!u) return;
+
+      const next = prompt("Set role to (admin/user):", String(u.role || "user"));
+      if (next === null) return;
+
+      const role = next.trim().toLowerCase();
+      if (role !== "admin" && role !== "user") { showAlert(uAlert, "error", "Role must be 'admin' or 'user'."); return; }
+
+      try {
+        const res = await fetch(`${API_BASE}/api/users/${userId}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
+          body: JSON.stringify({ role })
+        });
+        let data = {};
+        try { data = await res.json(); } catch { }
+        if (!res.ok) { showAlert(uAlert, "error", data?.message || "Role update failed."); return; }
+        showAlert(uAlert, "success", "Role updated.");
+        fetchU();
+      } catch { showAlert(uAlert, "error", "Server not reachable."); }
+    }
+
+    async function deleteUser(userId) {
+      if (!confirm("Delete user permanently?")) return;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/users/${userId}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${getToken()}` }
+        });
+        let data = {};
+        try { data = await res.json(); } catch { }
+        if (!res.ok) { showAlert(uAlert, "error", data?.message || "Delete failed."); return; }
+        showAlert(uAlert, "success", "User deleted.");
+        fetchU();
+      } catch { showAlert(uAlert, "error", "Server not reachable."); }
+    }
+
+    uRefresh.addEventListener("click", fetchU);
+    uSearch.addEventListener("input", applyUFilters);
+    uFilter.addEventListener("change", applyUFilters);
+
+    uGrid.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-action]");
+      if (!btn) return;
+      const action = btn.getAttribute("data-action");
+      const id = btn.getAttribute("data-id");
+      if (action === "role") changeRole(id);
+      if (action === "delete") deleteUser(id);
+    });
+
+    // ---- init
+    fetchT();
+    fetchB();
+    fetchU();
+  </script>
+
+  <!-- Header loader -->
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("header-placeholder").innerHTML = html;
+
+        function getToken() { return localStorage.getItem("token"); }
+        function getUser() { try { return JSON.parse(localStorage.getItem("user") || "null"); } catch { return null; } }
+        function isAdmin() { const u = getUser(); return (u?.role || "").toLowerCase() === "admin"; }
+
+        const token = getToken();
+        const guest1 = document.getElementById("nav-auth-guest");
+        const guest2 = document.getElementById("nav-auth-guest-2");
+        const userNav = document.getElementById("nav-auth-user");
+        const roleLi = document.getElementById("nav-role-link");
+
+        if (token) {
+          if (guest1) guest1.style.display = "none";
+          if (guest2) guest2.style.display = "none";
+          if (userNav) userNav.style.display = "inline-block";
+
+          if (roleLi) {
+            roleLi.style.display = "inline-block";
+            roleLi.innerHTML = isAdmin()
+              ? `<a href="dashboard.html" data-nav="dashboard"><i class="fa-solid fa-gauge" style="margin-right:8px;"></i>Dashboard</a>`
+              : `<a href="profile.html" data-nav="profile"><i class="fa-solid fa-user" style="margin-right:8px;"></i>Profile</a>`;
+          }
+        } else {
+          if (guest1) guest1.style.display = "inline-block";
+          if (guest2) guest2.style.display = "inline-block";
+          if (userNav) userNav.style.display = "none";
+          if (roleLi) roleLi.style.display = "none";
+        }
+
+        const logoutLink = document.getElementById("logout-link");
+        if (logoutLink) {
+          logoutLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            window.location.href = "login.html";
+          });
+        }
+
+        const current = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+        const map = { "dashboard.html": "dashboard" };
+        const key = map[current];
+        if (key) {
+          const activeLink = document.querySelector(`.sw-nav a[data-nav="${key}"]`);
+          if (activeLink) activeLink.classList.add("active");
+        }
+
+        const burger = document.getElementById("sw-burger");
+        const nav = document.getElementById("sw-nav");
+        if (burger && nav) {
+          const closeMenu = () => {
+            nav.classList.remove("open");
+            burger.classList.remove("is-open");
+            burger.setAttribute("aria-expanded", "false");
+          };
+
+          burger.addEventListener("click", () => {
+            const open = nav.classList.toggle("open");
+            burger.classList.toggle("is-open", open);
+            burger.setAttribute("aria-expanded", open ? "true" : "false");
+          });
+
+          nav.addEventListener("click", (e) => {
+            const a = e.target.closest("a");
+            if (a && window.innerWidth <= 900) closeMenu();
+          });
+
+          window.addEventListener("resize", () => {
+            if (window.innerWidth > 900) closeMenu();
+          });
+
+          document.addEventListener("click", (e) => {
+            if (window.innerWidth > 900) return;
+            if (!nav.classList.contains("open")) return;
+            const inside = e.target.closest("#sw-nav") || e.target.closest("#sw-burger");
+            if (!inside) closeMenu();
+          });
+        }
+      });
+  </script>
+</body>
+
+</html>

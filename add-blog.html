@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sara Wellness | Add Blog</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./style.css">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, rgba(46, 139, 87, 0.06), rgba(255, 255, 255, 1));
+      min-height: 100vh;
+    }
+
+    .page-wrap { padding: 34px 0 70px; }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 18px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .topbar h2 { margin: 0; line-height: 1.1; }
+    .topbar p { margin: 6px 0 0; color: #555; }
+
+    .pill-admin {
+      font-size: 12px;
+      font-weight: 900;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(13, 110, 253, 0.12);
+      color: #0b4db3;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .alert {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      border: 1px solid transparent;
+      line-height: 1.45;
+    }
+
+    .alert.success {
+      display: block;
+      background: rgba(46, 139, 87, 0.10);
+      border-color: rgba(46, 139, 87, 0.30);
+      color: #1e6a42;
+    }
+
+    .alert.error {
+      display: block;
+      background: rgba(220, 53, 69, 0.08);
+      border-color: rgba(220, 53, 69, 0.25);
+      color: #b02a37;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .field label {
+      font-size: 14px;
+      color: #333;
+      font-weight: 800;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      outline: none;
+      background: #fff;
+      transition: 0.2s ease;
+    }
+
+    .field textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: rgba(46, 139, 87, 0.65);
+      box-shadow: 0 0 0 4px rgba(46, 139, 87, 0.12);
+    }
+
+    .actions {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(46, 139, 87, 0.6);
+      color: #2E8B57;
+    }
+
+    .small {
+      color: #666;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    .preview {
+      margin-top: 10px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px dashed rgba(0, 0, 0, 0.18);
+      background: rgba(46, 139, 87, 0.04);
+    }
+
+    .preview img {
+      width: 120px;
+      height: 80px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="header-placeholder"></div>
+
+  <section class="page-wrap">
+    <div class="container">
+      <div class="card">
+
+        <div class="topbar">
+          <div>
+            <h2>Add Blog (Admin)</h2>
+            <p>Create a new blog post. Image uploads locally to your backend.</p>
+          </div>
+          <div class="pill-admin">
+            <i class="fa-solid fa-shield-halved"></i> Admin
+          </div>
+        </div>
+
+        <div id="alert" class="alert"></div>
+
+        <form id="blog-form" enctype="multipart/form-data">
+          <div class="field">
+            <label>Author (auto)</label>
+            <input id="author" type="text" disabled>
+            <div class="small">Auto-filled from logged-in admin name.</div>
+          </div>
+
+          <div class="field">
+            <label for="title">Title *</label>
+            <input id="title" type="text" required placeholder="Enter blog title...">
+          </div>
+
+          <div class="grid">
+            <div class="field">
+              <label for="category">Category *</label>
+              <input id="category" type="text" required placeholder="e.g. Nutrition, Fitness, Mental Health">
+            </div>
+
+            <div class="field">
+              <label for="published">Published</label>
+              <select id="published">
+                <option value="false" selected>Draft</option>
+                <option value="true">Publish</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="content">Content *</label>
+            <textarea id="content" required placeholder="Write blog content..."></textarea>
+          </div>
+
+          <div class="field">
+            <label for="excerpt">Excerpt (auto if empty) *</label>
+            <textarea id="excerpt" placeholder="Short summary... (optional)"></textarea>
+            <div class="small">Your model requires excerpt; if empty we generate from content.</div>
+          </div>
+
+          <div class="grid">
+            <div class="field">
+              <label for="tags">Tags (optional)</label>
+              <input id="tags" type="text" placeholder="comma separated e.g. diet, protein, sleep">
+              <div class="small">We auto-generate from category if empty.</div>
+            </div>
+
+            <div class="field">
+              <label for="image">Upload Image (local) (optional)</label>
+              <input id="image" type="file" accept="image/*">
+              <div class="small">Field name sent: <b>image</b></div>
+
+              <div id="preview" class="preview">
+                <img id="previewImg" alt="preview">
+                <div class="small">Selected image preview</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <a class="btn btn-outline" href="dashboard.html">
+              <i class="fa-solid fa-gauge" style="margin-right:8px;"></i> Back to Dashboard
+            </a>
+
+            <button class="btn" id="submitBtn" type="submit">
+              <i class="fa-solid fa-plus" style="margin-right:8px;"></i> Create Blog
+            </button>
+          </div>
+
+          <p class="small">Note: You must be logged in as admin to create blogs.</p>
+        </form>
+
+      </div>
+    </div>
+  </section>
+  <footer>
+  <div class="container">
+    <div class="footer-container">
+
+      <div class="footer-col">
+        <h4>Sara Wellness</h4>
+        <p>
+          Holistic approaches to wellness that integrate physical health with mental wellbeing
+          for a balanced, fulfilling life.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="weight-loss.html">Weight Loss</a></li>
+          <li><a href="hair-loss.html">Hair Loss</a></li>
+          <li><a href="skin-care.html">Skin Care</a></li>
+          <li><a href="stress-management.html">Stress Management</a></li>
+          <li><a href="pain-relief.html">Pain Relief</a></li>
+          <li><a href="personal-problems.html">Personal Problems</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p>Subscribe to our newsletter for wellness tips and updates.</p>
+        <form onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
+          <input type="email" placeholder="Your Email" required>
+          <button type="submit" class="btn">Subscribe</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="copyright">
+      <p>&copy; 2023 Sara Wellness. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+  <script>
+    const API_BASE = "http://localhost:5000";
+
+    function getToken() { return localStorage.getItem("token"); }
+    function getUser() { try { return JSON.parse(localStorage.getItem("user") || "null"); } catch { return null; } }
+    function isAdmin() { return (getUser()?.role || "").toLowerCase() === "admin"; }
+
+    function showAlert(type, message) {
+      const el = document.getElementById("alert");
+      el.className = `alert ${type}`;
+      el.innerHTML = type === "success"
+        ? `<i class="fa-solid fa-circle-check"></i> ${message}`
+        : `<i class="fa-solid fa-triangle-exclamation"></i> ${message}`;
+      el.style.display = "block";
+    }
+
+    function hideAlert() {
+      const el = document.getElementById("alert");
+      el.style.display = "none";
+      el.className = "alert";
+      el.innerHTML = "";
+    }
+
+    function setLoading(loading) {
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = loading;
+      btn.style.opacity = loading ? "0.75" : "1";
+      btn.innerHTML = loading
+        ? `<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i> Creating...`
+        : `<i class="fa-solid fa-plus" style="margin-right:8px;"></i> Create Blog`;
+    }
+
+    function autoExcerpt(content, maxLen = 160) {
+      const txt = (content || "").trim().replace(/\s+/g, " ");
+      if (!txt) return "";
+      return txt.length > maxLen ? txt.slice(0, maxLen).trim() + "..." : txt;
+    }
+
+    function autoTags(category, content) {
+      const base = [];
+      if (category) base.push(String(category).toLowerCase());
+
+      const text = String(content || "").toLowerCase();
+      const keywords = ["diet", "nutrition", "exercise", "fitness", "sleep", "stress", "anxiety", "skin", "hair", "pain", "mindfulness"];
+      const found = keywords.filter(k => text.includes(k)).slice(0, 5);
+
+      return Array.from(new Set([...base, ...found])).filter(Boolean);
+    }
+
+    // Auth guard + fill author
+    (function init() {
+      const token = getToken();
+      const user = getUser();
+
+      if (!token || !user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      if (!isAdmin()) {
+        window.location.href = "profile.html";
+        return;
+      }
+
+      document.getElementById("author").value = user?.name || "Sara Wellness Team";
+    })();
+
+    // Image preview
+    document.getElementById("image").addEventListener("change", (e) => {
+      const file = e.target.files?.[0];
+      const wrap = document.getElementById("preview");
+      const img = document.getElementById("previewImg");
+      if (!file) {
+        wrap.style.display = "none";
+        img.src = "";
+        return;
+      }
+      img.src = URL.createObjectURL(file);
+      wrap.style.display = "flex";
+    });
+
+    // Submit
+    document.getElementById("blog-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      hideAlert();
+
+      const token = getToken();
+      const user = getUser();
+      if (!token || !user || !isAdmin()) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      const title = document.getElementById("title").value.trim();
+      const category = document.getElementById("category").value.trim();
+      const content = document.getElementById("content").value.trim();
+      const excerptInput = document.getElementById("excerpt").value.trim();
+      const tagsInput = document.getElementById("tags").value.trim();
+      const published = document.getElementById("published").value === "true";
+
+      if (!title || !category || !content) {
+        showAlert("error", "Title, category and content are required.");
+        return;
+      }
+
+      const excerpt = excerptInput || autoExcerpt(content);
+      const tags = tagsInput
+        ? tagsInput.split(",").map(t => t.trim()).filter(Boolean)
+        : autoTags(category, content);
+
+      const imageFile = document.getElementById("image").files?.[0] || null;
+
+      const fd = new FormData();
+      fd.append("title", title);
+      fd.append("category", category);
+      fd.append("content", content);
+      fd.append("excerpt", excerpt);
+      fd.append("author", user.name || "Sara Wellness Team");
+      fd.append("published", String(published));
+
+      // IMPORTANT: backend may expect tags[] or tags
+      // We'll send tags[] (works with many parsers)
+      tags.forEach(t => fd.append("tags[]", t));
+
+      if (imageFile) fd.append("image", imageFile);
+
+      setLoading(true);
+      try {
+        const res = await fetch(`${API_BASE}/api/blog`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+          body: fd
+        });
+
+        let data = {};
+        try { data = await res.json(); } catch { }
+
+        if (!res.ok) {
+          showAlert("error", data?.message || data?.error || "Failed to create blog.");
+          setLoading(false);
+          return;
+        }
+
+        showAlert("success", "Blog created successfully!");
+        e.target.reset();
+        document.getElementById("author").value = user?.name || "Sara Wellness Team";
+        document.getElementById("preview").style.display = "none";
+        document.getElementById("previewImg").src = "";
+      } catch (err) {
+        showAlert("error", "Server not reachable. Make sure backend is running.");
+      } finally {
+        setLoading(false);
+      }
+    });
+  </script>
+
+  <!-- Header loader (shared) -->
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("header-placeholder").innerHTML = html;
+
+        function getToken() { return localStorage.getItem("token"); }
+        function getUser() { try { return JSON.parse(localStorage.getItem("user") || "null"); } catch { return null; } }
+        function isAdmin() { return (getUser()?.role || "").toLowerCase() === "admin"; }
+
+        const token = getToken();
+        const guest1 = document.getElementById("nav-auth-guest");
+        const guest2 = document.getElementById("nav-auth-guest-2");
+        const userNav = document.getElementById("nav-auth-user");
+        const roleLi = document.getElementById("nav-role-link");
+
+        if (token) {
+          if (guest1) guest1.style.display = "none";
+          if (guest2) guest2.style.display = "none";
+          if (userNav) userNav.style.display = "inline-block";
+          if (roleLi) {
+            roleLi.style.display = "inline-block";
+            roleLi.innerHTML = isAdmin()
+              ? `<a href="dashboard.html" data-nav="dashboard"><i class="fa-solid fa-gauge" style="margin-right:8px;"></i>Dashboard</a>`
+              : `<a href="profile.html" data-nav="profile"><i class="fa-solid fa-user" style="margin-right:8px;"></i>Profile</a>`;
+          }
+        } else {
+          if (guest1) guest1.style.display = "inline-block";
+          if (guest2) guest2.style.display = "inline-block";
+          if (userNav) userNav.style.display = "none";
+          if (roleLi) roleLi.style.display = "none";
+        }
+
+        const logoutLink = document.getElementById("logout-link");
+        if (logoutLink) {
+          logoutLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            window.location.href = "login.html";
+          });
+        }
+
+        // Active highlight
+        const current = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+        const map = {
+          "index.html": "home",
+          "services.html": "services",
+          "about.html": "about",
+          "testimonials.html": "testimonials",
+          "blog.html": "blog",
+          "contact.html": "contact",
+          "login.html": "login",
+          "register.html": "register",
+          "profile.html": "profile",
+          "dashboard.html": "dashboard",
+          "add-blog.html": "dashboard" // highlight dashboard area
+        };
+        const key = map[current];
+        if (key) {
+          const a = document.querySelector(`.sw-nav a[data-nav="${key}"]`);
+          if (a) a.classList.add("active");
+        }
+
+        // Hamburger
+        const burger = document.getElementById("sw-burger");
+        const nav = document.getElementById("sw-nav");
+        if (burger && nav) {
+          const close = () => {
+            nav.classList.remove("open");
+            burger.classList.remove("is-open");
+            burger.setAttribute("aria-expanded", "false");
+          };
+          burger.addEventListener("click", () => {
+            const open = nav.classList.toggle("open");
+            burger.classList.toggle("is-open", open);
+            burger.setAttribute("aria-expanded", open ? "true" : "false");
+          });
+          nav.addEventListener("click", (e) => {
+            const a = e.target.closest("a");
+            if (a && window.innerWidth <= 900) close();
+          });
+          window.addEventListener("resize", () => { if (window.innerWidth > 900) close(); });
+          document.addEventListener("click", (e) => {
+            if (window.innerWidth > 900) return;
+            if (!nav.classList.contains("open")) return;
+            const inside = e.target.closest("#sw-nav") || e.target.closest("#sw-burger");
+            if (!inside) close();
+          });
+        }
+      });
+  </script>
+
+</body>
+</html>

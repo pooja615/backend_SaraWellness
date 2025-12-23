@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sara Wellness | Register</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./style.css">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, rgba(46, 139, 87, 0.08), rgba(255, 255, 255, 1));
+      min-height: 100vh;
+    }
+
+    .auth-wrap {
+      padding: 48px 0 60px;
+    }
+
+    .auth-card {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .auth-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .auth-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(46, 139, 87, 0.10);
+      color: #2E8B57;
+      font-size: 18px;
+    }
+
+    .auth-title h2 {
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .auth-title p {
+      margin: 4px 0 0;
+      color: #555;
+    }
+
+    .auth-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 700px) {
+      .auth-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 14px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      outline: none;
+      transition: 0.2s ease;
+      background: #fff;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: rgba(46, 139, 87, 0.65);
+      box-shadow: 0 0 0 4px rgba(46, 139, 87, 0.12);
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .toggle-pass {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: #666;
+      padding: 6px;
+    }
+
+    .auth-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .muted-link {
+      color: #2E8B57;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .muted-link:hover {
+      text-decoration: underline;
+    }
+
+    .note {
+      margin-top: 10px;
+      color: #666;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .alert {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.4;
+      border: 1px solid transparent;
+    }
+
+    .alert.success {
+      display: block;
+      background: rgba(46, 139, 87, 0.10);
+      border-color: rgba(46, 139, 87, 0.30);
+      color: #1e6a42;
+    }
+
+    .alert.error {
+      display: block;
+      background: rgba(220, 53, 69, 0.08);
+      border-color: rgba(220, 53, 69, 0.25);
+      color: #b02a37;
+    }
+
+    .alert i {
+      margin-right: 8px;
+    }
+
+    footer a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+      <div id="header-placeholder"></div>
+
+
+  <section class="auth-wrap">
+    <div class="container">
+      <div class="auth-card">
+        <div class="auth-head">
+          <div class="auth-badge"><i class="fa-solid fa-user-plus"></i></div>
+          <div class="auth-title">
+            <h2>Create your account</h2>
+            <p>Join Sara Wellness to book appointments and manage your wellness journey.</p>
+          </div>
+        </div>
+
+        <div id="register-alert" class="alert"></div>
+
+        <form id="register-form">
+          <div class="auth-grid">
+            <div class="field" style="grid-column: 1 / -1;">
+              <label for="name">Full Name</label>
+              <input id="name" type="text" name="name" placeholder="e.g. Shanker Pandey" required>
+            </div>
+
+            <div class="field" style="grid-column: 1 / -1;">
+              <label for="email">Email</label>
+              <input id="email" type="email" name="email" placeholder="you@example.com" required>
+            </div>
+
+            <!-- ✅ Role Select -->
+            <div class="field" style="grid-column: 1 / -1;">
+              <label for="role">Role</label>
+              <select id="role" name="role" required>
+                <option value="user" selected>Normal User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="password">Password</label>
+              <div class="password-wrap">
+                <input id="password" type="password" name="password" placeholder="Minimum 6 characters" required minlength="6">
+                <button type="button" class="toggle-pass" data-target="password" aria-label="Toggle password">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="confirmPassword">Confirm Password</label>
+              <div class="password-wrap">
+                <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Re-type password" required minlength="6">
+                <button type="button" class="toggle-pass" data-target="confirmPassword" aria-label="Toggle confirm password">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="auth-actions">
+            <button class="btn" type="submit" id="register-btn">
+              <i class="fa-solid fa-lock" style="margin-right:8px;"></i> Register
+            </button>
+
+            <div>
+              Already have an account?
+              <a class="muted-link" href="login.html">Login</a>
+            </div>
+          </div>
+
+          <p class="note">
+            By creating an account, you agree to keep your login information secure.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+<footer>
+  <div class="container">
+    <div class="footer-container">
+
+      <div class="footer-col">
+        <h4>Sara Wellness</h4>
+        <p>
+          Holistic approaches to wellness that integrate physical health with mental wellbeing
+          for a balanced, fulfilling life.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="weight-loss.html">Weight Loss</a></li>
+          <li><a href="hair-loss.html">Hair Loss</a></li>
+          <li><a href="skin-care.html">Skin Care</a></li>
+          <li><a href="stress-management.html">Stress Management</a></li>
+          <li><a href="pain-relief.html">Pain Relief</a></li>
+          <li><a href="personal-problems.html">Personal Problems</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p>Subscribe to our newsletter for wellness tips and updates.</p>
+        <form onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
+          <input type="email" placeholder="Your Email" required>
+          <button type="submit" class="btn">Subscribe</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="copyright">
+      <p>&copy; 2023 Sara Wellness. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+  <script>
+    const API_BASE = "http://localhost:5000";
+
+    function showAlert(type, message) {
+      const el = document.getElementById("register-alert");
+      el.className = `alert ${type}`;
+      el.innerHTML = type === "success"
+        ? `<i class="fa-solid fa-circle-check"></i>${message}`
+        : `<i class="fa-solid fa-triangle-exclamation"></i>${message}`;
+      el.style.display = "block";
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function setLoading(isLoading) {
+      const btn = document.getElementById("register-btn");
+      btn.disabled = isLoading;
+      btn.style.opacity = isLoading ? "0.75" : "1";
+      btn.innerHTML = isLoading
+        ? `<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i> Creating Account...`
+        : `<i class="fa-solid fa-lock" style="margin-right:8px;"></i> Register`;
+    }
+
+    document.querySelectorAll(".toggle-pass").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-target");
+        const input = document.getElementById(id);
+        const icon = btn.querySelector("i");
+
+        if (input.type === "password") {
+          input.type = "text";
+          icon.className = "fa-regular fa-eye-slash";
+        } else {
+          input.type = "password";
+          icon.className = "fa-regular fa-eye";
+        }
+      });
+    });
+
+    document.getElementById("register-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const role = document.getElementById("role").value; // ✅ NEW
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (password !== confirmPassword) {
+        showAlert("error", "Passwords do not match. Please re-check and try again.");
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        const res = await fetch(`${API_BASE}/api/users/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, password, role }), // ✅ NEW
+        });
+
+        let data = {};
+        try { data = await res.json(); } catch { }
+
+        if (!res.ok) {
+          const msg = data?.message || data?.error || "Registration failed. Please try again.";
+          showAlert("error", msg);
+          setLoading(false);
+          return;
+        }
+
+        // Your backend returns: { token, user: { id, name, email, role } }
+        if (data?.token) localStorage.setItem("token", data.token);
+        if (data?.user) localStorage.setItem("user", JSON.stringify(data.user));
+
+        showAlert("success", "Registration successful! Redirecting to your profile...");
+        localStorage.setItem("lastRegisteredEmail", email);
+
+        setTimeout(() => {
+          window.location.href = "profile.html";
+        }, 900);
+
+      } catch (err) {
+        showAlert("error", "Server not reachable. Make sure backend is running on localhost:5000.");
+        setLoading(false);
+      }
+    });
+
+    (function updateAuthNav() {
+      const token = localStorage.getItem("token");
+      const guest1 = document.getElementById("nav-auth-guest");
+      const guest2 = document.getElementById("nav-auth-guest-2");
+      const user = document.getElementById("nav-auth-user");
+
+      if (token) {
+        if (guest1) guest1.style.display = "none";
+        if (guest2) guest2.style.display = "none";
+        if (user) user.style.display = "inline-block";
+      } else {
+        if (guest1) guest1.style.display = "inline-block";
+        if (guest2) guest2.style.display = "inline-block";
+        if (user) user.style.display = "none";
+      }
+    })();
+
+    const logoutLink = document.getElementById("logout-link");
+    if (logoutLink) {
+      logoutLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "login.html";
+      });
+    }
+  </script>
+<script>
+  fetch("header.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("header-placeholder").innerHTML = html;
+
+      const API_BASE = "http://localhost:5000"; // optional, not required here
+
+      function getToken() {
+        return localStorage.getItem("token");
+      }
+      function getUser() {
+        try { return JSON.parse(localStorage.getItem("user") || "null"); }
+        catch { return null; }
+      }
+      function isAdmin() {
+        const u = getUser();
+        return (u?.role || "").toLowerCase() === "admin";
+      }
+
+      // ✅ Auth-aware nav toggle + role link
+      const token = getToken();
+      const guest1 = document.getElementById("nav-auth-guest");
+      const guest2 = document.getElementById("nav-auth-guest-2");
+      const userNav = document.getElementById("nav-auth-user");
+      const roleLi = document.getElementById("nav-role-link");
+
+      if (token) {
+        if (guest1) guest1.style.display = "none";
+        if (guest2) guest2.style.display = "none";
+        if (userNav) userNav.style.display = "inline-block";
+
+        // Role-based quick link
+        if (roleLi) {
+          roleLi.style.display = "inline-block";
+          roleLi.innerHTML = isAdmin()
+            ? `<a href="dashboard.html" data-nav="dashboard"><i class="fa-solid fa-gauge" style="margin-right:8px;"></i>Dashboard</a>`
+            : `<a href="profile.html" data-nav="profile"><i class="fa-solid fa-user" style="margin-right:8px;"></i>Profile</a>`;
+        }
+      } else {
+        if (guest1) guest1.style.display = "inline-block";
+        if (guest2) guest2.style.display = "inline-block";
+        if (userNav) userNav.style.display = "none";
+        if (roleLi) roleLi.style.display = "none";
+      }
+
+      // ✅ Logout
+      const logoutLink = document.getElementById("logout-link");
+      if (logoutLink) {
+        logoutLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          window.location.href = "login.html";
+        });
+      }
+
+      // ✅ Active menu highlighting
+      // Uses current page filename like "blog.html"
+      const current = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+
+      // map file -> data-nav key used in header
+      const map = {
+        "index.html": "home",
+        "services.html": "services",
+        "about.html": "about",
+        "testimonials.html": "testimonials",
+        "blog.html": "blog",
+        "contact.html": "contact",
+        "login.html": "login",
+        "register.html": "register",
+        "profile.html": "profile",
+        "dashboard.html": "dashboard"
+      };
+
+      const key = map[current];
+
+      if (key) {
+        const activeLink = document.querySelector(`.sw-nav a[data-nav="${key}"]`);
+        if (activeLink) activeLink.classList.add("active");
+      }
+
+      // ✅ Mobile hamburger menu
+      const burger = document.getElementById("sw-burger");
+      const nav = document.getElementById("sw-nav");
+
+      if (burger && nav) {
+        const closeMenu = () => {
+          nav.classList.remove("open");
+          burger.classList.remove("is-open");
+          burger.setAttribute("aria-expanded", "false");
+        };
+
+        burger.addEventListener("click", () => {
+          const open = nav.classList.toggle("open");
+          burger.classList.toggle("is-open", open);
+          burger.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+
+        // Close menu when clicking a link (mobile UX)
+        nav.addEventListener("click", (e) => {
+          const a = e.target.closest("a");
+          if (a && window.innerWidth <= 900) closeMenu();
+        });
+
+        // Close menu if resizing back to desktop
+        window.addEventListener("resize", () => {
+          if (window.innerWidth > 900) closeMenu();
+        });
+
+        // Close menu when clicking outside nav (optional)
+        document.addEventListener("click", (e) => {
+          if (window.innerWidth > 900) return;
+          if (!nav.classList.contains("open")) return;
+          const inside = e.target.closest("#sw-nav") || e.target.closest("#sw-burger");
+          if (!inside) closeMenu();
+        });
+      }
+    });
+</script>
+<!-- ✅ Single-file reusable chatbot (NO fetch, NO extra files)
+     Paste this near the END of <body> in ANY page.
+     Requirements: FontAwesome link in <head> (optional, icons will fallback if missing)
+-->
+
+<style>
+  /* ===== Sara Wellness Reusable Chatbot (Single-file) ===== */
+  #sw-chatbot{position:fixed;bottom:30px;right:30px;z-index:9999}
+  #sw-chatbot .sw-chatbot-btn{
+    width:60px;height:60px;border-radius:50%;
+    background:linear-gradient(135deg,#DC143C,#4B0082);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:1.5rem;cursor:pointer;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    transition:transform .3s ease;animation:swPulse 2s infinite;
+    user-select:none;
+  }
+  #sw-chatbot .sw-chatbot-btn:hover{transform:scale(1.1)}
+  @keyframes swPulse{
+    0%{box-shadow:0 0 0 0 rgba(220,20,60,.7)}
+    70%{box-shadow:0 0 0 15px rgba(220,20,60,0)}
+    100%{box-shadow:0 0 0 0 rgba(220,20,60,0)}
+  }
+
+  #sw-chatbot .sw-chatbot-window{
+    position:absolute;bottom:70px;right:0;
+    width:350px;height:450px;background:#fff;border-radius:15px;
+    box-shadow:0 5px 25px rgba(0,0,0,.2);
+    display:none;flex-direction:column;overflow:hidden;
+    border:2px solid #DC143C;
+  }
+  #sw-chatbot .sw-chatbot-window.show{display:flex}
+
+  #sw-chatbot .sw-chatbot-header{
+    background:linear-gradient(135deg,#DC143C,#4B0082);
+    color:#fff;padding:15px;display:flex;align-items:center;justify-content:space-between
+  }
+  #sw-chatbot .sw-chatbot-header h3{font-size:1rem;margin:0}
+  #sw-chatbot .sw-close{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%}
+  #sw-chatbot .sw-close:hover{background:rgba(255,255,255,.15)}
+
+  #sw-chatbot .sw-messages{
+    flex:1;padding:15px;overflow-y:auto;display:flex;flex-direction:column;gap:10px
+  }
+  #sw-chatbot .sw-message{
+    max-width:80%;padding:10px 15px;border-radius:20px;line-height:1.4;font-size:.95rem;white-space:pre-wrap
+  }
+  #sw-chatbot .sw-bot{background:#f1f1f1;align-self:flex-start;border-bottom-left-radius:6px;color:#343a40}
+  #sw-chatbot .sw-user{background:#DC143C;color:#fff;align-self:flex-end;border-bottom-right-radius:6px}
+
+  #sw-chatbot .sw-input{
+    display:flex;gap:10px;padding:10px;border-top:1px solid #ddd;background:#fff
+  }
+  #sw-chatbot .sw-input input{
+    flex:1;padding:10px;border:1px solid #ddd;border-radius:20px;outline:none
+  }
+  #sw-chatbot .sw-input button{
+    width:40px;height:40px;border:none;border-radius:50%;
+    background:#DC143C;color:#fff;cursor:pointer;flex:0 0 auto
+  }
+
+  @media (max-width:768px){
+    #sw-chatbot{bottom:20px;right:20px}
+    #sw-chatbot .sw-chatbot-window{width:300px;height:400px}
+  }
+</style>
+
+<div id="sw-chatbot" aria-live="polite">
+  <div class="sw-chatbot-btn" id="sw-chatbot-btn" aria-label="Open chat" role="button" tabindex="0">
+    <i class="fas fa-comment-medical" aria-hidden="true"></i>
+  </div>
+
+  <div class="sw-chatbot-window" id="sw-chatbot-window" aria-hidden="true">
+    <div class="sw-chatbot-header">
+      <h3>Sara Wellness Assistant</h3>
+      <span class="sw-close" id="sw-chatbot-close" aria-label="Close chat" role="button" tabindex="0">
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </span>
+    </div>
+
+    <div class="sw-messages" id="sw-chatbot-messages">
+      <div class="sw-message sw-bot">
+        Hello! I'm Sara, your wellness assistant. You can ask me anything about our services: weight loss, hair loss, skin care, stress management, pain relief, or personal problems.
+      </div>
+    </div>
+
+    <div class="sw-input">
+      <input type="text" id="sw-user-input" placeholder="Type your question here..." autocomplete="off" />
+      <button id="sw-send-btn" aria-label="Send message">
+        <i class="fas fa-paper-plane" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    // Avoid double-init if pasted twice
+    if (window.__SW_CHATBOT_INIT__) return;
+    window.__SW_CHATBOT_INIT__ = true;
+
+    const btn = document.getElementById("sw-chatbot-btn");
+    const win = document.getElementById("sw-chatbot-window");
+    const closeBtn = document.getElementById("sw-chatbot-close");
+    const input = document.getElementById("sw-user-input");
+    const sendBtn = document.getElementById("sw-send-btn");
+    const messages = document.getElementById("sw-chatbot-messages");
+
+    function openChat() {
+      win.classList.add("show");
+      win.setAttribute("aria-hidden", "false");
+      setTimeout(() => input && input.focus(), 50);
+    }
+
+    function closeChat() {
+      win.classList.remove("show");
+      win.setAttribute("aria-hidden", "true");
+    }
+
+    function addMessage(text, sender) {
+      const el = document.createElement("div");
+      el.className = "sw-message " + (sender === "user" ? "sw-user" : "sw-bot");
+      el.textContent = text;
+      messages.appendChild(el);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function generateResponse(message) {
+      const msg = String(message || "").toLowerCase();
+
+      // Weight loss
+      if (msg.includes("weight") || msg.includes("diet") || msg.includes("obese") || msg.includes("fat")) {
+        return "Our weight loss program includes personalized diet plans, exercise routines, and lifestyle modifications. We focus on sustainable weight loss rather than quick fixes.";
+      }
+
+      // Hair loss
+      if (msg.includes("hair") || msg.includes("bald") || msg.includes("scalp")) {
+        return "We offer comprehensive hair loss treatments including scalp therapies, nutritional guidance, and natural remedies to promote hair growth and reduce hair fall.";
+      }
+
+      // Skin care
+      if (msg.includes("skin") || msg.includes("acne") || msg.includes("pimple") || msg.includes("glow")) {
+        return "Our skin care treatments address concerns like acne, aging, pigmentation, and dryness. We use a combination of advanced treatments and natural approaches.";
+      }
+
+      // Stress
+      if (msg.includes("stress") || msg.includes("anxiety") || msg.includes("tension") || msg.includes("worry")) {
+        return "Our stress management program includes counseling, relaxation techniques, mindfulness practices, and lifestyle adjustments to help you manage stress effectively.";
+      }
+
+      // Pain relief (fixed your old typo: imcludes -> includes)
+      if (
+        msg.includes("pain") ||
+        msg.includes("joint") ||
+        msg.includes("joints") ||
+        msg.includes("sprain") ||
+        msg.includes("shoulder") ||
+        msg.includes("muscle") ||
+        msg.includes("stomach ache")
+      ) {
+        return "Our pain relief service offers natural and holistic approaches to manage and relieve chronic pain, improving your quality of life through proven techniques.";
+      }
+
+      // Personal problems / general issues
+      if (msg.includes("personal") || msg.includes("problem") || msg.includes("issue")) {
+        return "We provide discreet support for sensitive personal concerns in a safe, confidential environment. For private guidance, please book a consultation via our contact page.";
+      }
+
+      // Appointment
+      if (msg.includes("appointment") || msg.includes("schedule") || msg.includes("book") || msg.includes("meet")) {
+        return "You can book an appointment by calling +977-15225050 or by using our contact page. Our staff will get back to you soon.";
+      }
+
+      // Price
+      if (msg.includes("price") || msg.includes("cost") || msg.includes("fee") || msg.includes("charge")) {
+        return "Pricing depends on the treatment plan. Please contact us for specific packages and consultation details.";
+      }
+
+      // Greetings
+      if (msg.includes("hello") || msg.includes("hi") || msg.includes("hey") || msg.includes("namaste")) {
+        return "Hello! How can I help you with your wellness journey today?";
+      }
+
+      if (msg.includes("thank")) {
+        return "You're welcome! Is there anything else you'd like to know about our services?";
+      }
+
+      return "Thank you for your question. I can share info about our wellness services. For more specific help, please contact us directly.";
+    }
+
+    function sendMessage() {
+      const text = (input.value || "").trim();
+      if (!text) return;
+
+      addMessage(text, "user");
+      input.value = "";
+
+      setTimeout(() => addMessage(generateResponse(text), "bot"), 600);
+    }
+
+    // Click handlers
+    btn.addEventListener("click", openChat);
+    closeBtn.addEventListener("click", closeChat);
+    sendBtn.addEventListener("click", sendMessage);
+
+    // Enter to send
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") sendMessage();
+      if (e.key === "Escape") closeChat();
+    });
+
+    // Allow keyboard access on open/close icons
+    btn.addEventListener("keydown", (e) => { if (e.key === "Enter") openChat(); });
+    closeBtn.addEventListener("keydown", (e) => { if (e.key === "Enter") closeChat(); });
+
+    // Optional: ESC anywhere closes if open
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && win.classList.contains("show")) closeChat();
+    });
+  })();
+</script>
+
+
+
+</body>
+</html>

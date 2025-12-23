@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sara Wellness Chatbot - Language Selection</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fsarawelln3380back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-surface min-h-screen font-source">
+    <!-- Main Container -->
+    <div class="min-h-screen flex flex-col">
+        <!-- Header Section -->
+        <header class="pt-8 pb-4 px-4">
+            <div class="max-w-md mx-auto text-center">
+                <!-- Logo -->
+                <div class="mb-6">
+                    <div class="w-20 h-20 mx-auto bg-primary-600 rounded-2xl flex items-center justify-center shadow-medical-md">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                    </div>
+                    <h1 class="text-2xl font-inter font-semibold text-text-primary mt-4 mb-2">Sara Wellness</h1>
+                    <p class="text-sm text-text-secondary">स्वास्थ्य सहायक चैटबट</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 pb-8">
+            <div class="max-w-md mx-auto">
+                <!-- Language Selection -->
+                <section class="mb-8">
+                    <div class="medical-card p-6">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-5 h-5 text-primary-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                            </svg>
+                            <h2 class="text-lg font-inter font-medium text-text-primary">भाषा छान्नुहोस् / Select Language</h2>
+                        </div>
+                        
+                        <div class="relative">
+                            <select id="languageSelect" class="medical-input appearance-none pr-10 cursor-pointer">
+                                <option value="ne" selected>नेपाली (Nepali)</option>
+                                <option value="en">English</option>
+                                <option value="hi">हिन्दी (Hindi)</option>
+                                <option value="mai">मैथिली (Maithili)</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Welcome Message -->
+                <section class="mb-8">
+                    <div class="text-center">
+                        <h3 class="text-xl font-inter font-semibold text-text-primary mb-4" id="welcomeTitle">
+                            स्वास्थ्य मार्गदर्शनमा स्वागत छ
+                        </h3>
+                        <p class="text-text-secondary leading-relaxed mb-6" id="welcomeDescription">
+                            Sara Wellness ले तपाईंलाई शारीरिक र मानसिक स्वास्थ्य सम्बन्धी जानकारी र मार्गदर्शन प्रदान गर्छ। हामी तपाईंको स्वास्थ्य चिन्ताहरूको समाधान खोज्न मद्दत गर्छौं।
+                        </p>
+                        
+                        <!-- Health Imagery -->
+                        <div class="mb-6">
+                            <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Healthcare consultation" class="w-full h-48 object-cover rounded-xl shadow-medical-sm" onerror="this.src='https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Medical Disclaimer -->
+                <section class="mb-8">
+                    <div class="bg-error-50 border-l-4 border-error-600 p-4 rounded-r-lg">
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-error-600 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                            </svg>
+                            <div>
+                                <h4 class="font-medium text-error-800 mb-2" id="disclaimerTitle">
+                                    महत्वपूर्ण चिकित्सा अस्वीकरण
+                                </h4>
+                                <p class="text-sm text-error-700 leading-relaxed" id="disclaimerText">
+                                    यो चैटबट चिकित्सकको विकल्प होइन। आपतकालीन अवस्थामा तुरुन्त चिकित्सक वा अस्पतालमा सम्पर्क गर्नुहोस्। गम्भीर स्वास्थ्य समस्याका लागि योग्य चिकित्सकको सल्लाह लिनुहोस्।
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Emergency Contacts -->
+                <section class="mb-8">
+                    <div class="medical-card p-4">
+                        <h4 class="font-medium text-text-primary mb-3 flex items-center">
+                            <svg class="w-4 h-4 text-error-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <span id="emergencyTitle">आपतकालीन सम्पर्क</span>
+                        </h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-text-secondary">एम्बुलेन्स:</span>
+                                <a href="tel:102" class="text-primary-600 font-medium">102</a>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-text-secondary">पुलिस:</span>
+                                <a href="tel:100" class="text-primary-600 font-medium">100</a>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-text-secondary">दमकल:</span>
+                                <a href="tel:101" class="text-primary-600 font-medium">101</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Action Buttons -->
+                <section class="space-y-4">
+                    <!-- Primary CTA -->
+                    <button onclick="startHealthChat()" class="w-full medical-button-primary py-4 text-lg font-medium rounded-xl shadow-medical-md hover:shadow-medical-lg transition-all duration-200">
+                        <span class="flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                            <span id="startChatButton">स्वास्थ्य च्याट सुरु गर्नुहोस्</span>
+                        </span>
+                    </button>
+
+                    <!-- Secondary Actions -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <a href="health_resource_directory.html" class="medical-button-secondary text-center py-3 rounded-lg">
+                            <div class="flex flex-col items-center">
+                                <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H5m4 0v-5a1 1 0 011-1h4a1 1 0 011 1v5m-4 0h4"/>
+                                </svg>
+                                <span class="text-xs" id="resourcesButton">स्वास्थ्य संसाधन</span>
+                            </div>
+                        </a>
+                        <a href="conversation_history_health_summary.html" class="medical-button-secondary text-center py-3 rounded-lg">
+                            <div class="flex flex-col items-center">
+                                <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-xs" id="historyButton">इतिहास</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="mt-12 text-center">
+                    <p class="text-xs text-text-secondary">
+                        © 2025 Sara Wellness. सबै अधिकार सुरक्षित।
+                    </p>
+                    <p class="text-xs text-text-secondary mt-1">
+                        Version 1.0 | Last Updated: 28/08/2025
+                    </p>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript for Language Switching and Navigation -->
+    <script>
+        // Language content object
+        const languageContent = {
+            ne: {
+                welcomeTitle: 'स्वास्थ्य मार्गदर्शनमा स्वागत छ',
+                welcomeDescription: 'Sara Wellness ले तपाईंलाई शारीरिक र मानसिक स्वास्थ्य सम्बन्धी जानकारी र मार्गदर्शन प्रदान गर्छ। हामी तपाईंको स्वास्थ्य चिन्ताहरूको समाधान खोज्न मद्दत गर्छौं।',
+                disclaimerTitle: 'महत्वपूर्ण चिकित्सा अस्वीकरण',
+                disclaimerText: 'यो चैटबट चिकित्सकको विकल्प होइन। आपतकालीन अवस्थामा तुरुन्त चिकित्सक वा अस्पतालमा सम्पर्क गर्नुहोस्। गम्भीर स्वास्थ्य समस्याका लागि योग्य चिकित्सकको सल्लाह लिनुहोस्।',
+                emergencyTitle: 'आपतकालीन सम्पर्क',
+                startChatButton: 'स्वास्थ्य च्याट सुरु गर्नुहोस्',
+                resourcesButton: 'स्वास्थ्य संसाधन',
+                historyButton: 'इतिहास'
+            },
+            en: {
+                welcomeTitle: 'Welcome to Health Guidance',
+                welcomeDescription: 'Sara Wellness provides you with physical and mental health information and guidance. We help you find solutions to your health concerns.',
+                disclaimerTitle: 'Important Medical Disclaimer',
+                disclaimerText: 'This chatbot is not a substitute for a doctor. In case of emergency, contact a doctor or hospital immediately. Consult a qualified physician for serious health problems.',
+                emergencyTitle: 'Emergency Contacts',
+                startChatButton: 'Start Health Chat',
+                resourcesButton: 'Health Resources',
+                historyButton: 'History'
+            },
+            hi: {
+                welcomeTitle: 'स्वास्थ्य मार्गदर्शन में आपका स्वागत है',
+                welcomeDescription: 'Sara Wellness आपको शारीरिक और मानसिक स्वास्थ्य संबंधी जानकारी और मार्गदर्शन प्रदान करता है। हम आपकी स्वास्थ्य चिंताओं का समाधान खोजने में मदद करते हैं।',
+                disclaimerTitle: 'महत्वपूर्ण चिकित्सा अस्वीकरण',
+                disclaimerText: 'यह चैटबॉट डॉक्टर का विकल्प नहीं है। आपातकाल की स्थिति में तुरंत डॉक्टर या अस्पताल से संपर्क करें। गंभीर स्वास्थ्य समस्याओं के लिए योग्य चिकित्सक की सलाह लें।',
+                emergencyTitle: 'आपातकालीन संपर्क',
+                startChatButton: 'स्वास्थ्य चैट शुरू करें',
+                resourcesButton: 'स्वास्थ्य संसाधन',
+                historyButton: 'इतिहास'
+            },
+            mai: {
+                welcomeTitle: 'स्वास्थ्य मार्गदर्शनमे स्वागत अछि',
+                welcomeDescription: 'Sara Wellness अहाँकेँ शारीरिक आ मानसिक स्वास्थ्य संबंधी जानकारी आ मार्गदर्शन प्रदान करैत अछि। हम अहाँक स्वास्थ्य चिंताक समाधान खोजबमे मदद करैत छी।',
+                disclaimerTitle: 'महत्वपूर्ण चिकित्सा अस्वीकरण',
+                disclaimerText: 'ई चैटबॉट डॉक्टरक विकल्प नहि अछि। आपातकालक स्थितिमे तुरंत डॉक्टर वा अस्पतालसँ संपर्क करू। गंभीर स्वास्थ्य समस्याक लेल योग्य चिकित्सकक सलाह लिअ।',
+                emergencyTitle: 'आपातकालीन संपर्क',
+                startChatButton: 'स्वास्थ्य चैट शुरू करू',
+                resourcesButton: 'स्वास्थ्य संसाधन',
+                historyButton: 'इतिहास'
+            }
+        };
+
+        // Language selection handler
+        document.getElementById('languageSelect').addEventListener('change', function() {
+            const selectedLang = this.value;
+            const content = languageContent[selectedLang];
+            
+            // Update content based on selected language
+            document.getElementById('welcomeTitle').textContent = content.welcomeTitle;
+            document.getElementById('welcomeDescription').textContent = content.welcomeDescription;
+            document.getElementById('disclaimerTitle').textContent = content.disclaimerTitle;
+            document.getElementById('disclaimerText').textContent = content.disclaimerText;
+            document.getElementById('emergencyTitle').textContent = content.emergencyTitle;
+            document.getElementById('startChatButton').textContent = content.startChatButton;
+            document.getElementById('resourcesButton').textContent = content.resourcesButton;
+            document.getElementById('historyButton').textContent = content.historyButton;
+            
+            // Store selected language in localStorage
+            localStorage.setItem('selectedLanguage', selectedLang);
+        });
+
+        // Load saved language preference
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('selectedLanguage') || 'ne';
+            document.getElementById('languageSelect').value = savedLang;
+            
+            // Trigger change event to update content
+            const event = new Event('change');
+            document.getElementById('languageSelect').dispatchEvent(event);
+        });
+
+        // Start health chat function
+        function startHealthChat() {
+            // Store user consent and language preference
+            localStorage.setItem('userConsent', 'true');
+            localStorage.setItem('consentTimestamp', new Date().toISOString());
+            
+            // Navigate to main chat interface
+            window.location.href = 'main_chat_interface.html';
+        }
+
+        // Add gentle pulse animation to CTA button
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctaButton = document.querySelector('[onclick="startHealthChat()"]');
+            ctaButton.classList.add('animate-gentle-pulse');
+        });
+
+        // Accessibility improvements
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.tagName === 'SELECT') {
+                e.target.click();
+            }
+        });
+
+        // Add focus management for better accessibility
+        document.querySelectorAll('a, button, select').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.classList.add('ring-2', 'ring-primary-500', 'ring-offset-2');
+            });
+            
+            element.addEventListener('blur', function() {
+                this.classList.remove('ring-2', 'ring-primary-500', 'ring-offset-2');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Upload & Analysis - Sara Wellness</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fsarawelln3380back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-surface min-h-screen font-source">
+    <!-- Modal Overlay -->
+    <div id="uploadModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <!-- Modal Container -->
+        <div class="bg-white rounded-xl shadow-medical-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+            <!-- Modal Header -->
+            <header class="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 rounded-t-xl">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center mr-3">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-lg font-inter font-semibold text-text-primary">छवि अपलोड र विश्लेषण</h1>
+                            <p class="text-sm text-text-secondary">Image Upload & Analysis</p>
+                        </div>
+                    </div>
+                    <button onclick="closeModal()" class="p-2 hover:bg-slate-100 rounded-lg transition-colors">
+                        <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Modal Content -->
+            <div class="p-6">
+                <!-- Desktop Layout: Side by Side -->
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Upload Section -->
+                    <div class="space-y-6">
+                        <!-- Upload Area -->
+                        <section>
+                            <div id="uploadArea" class="medical-card border-2 border-dashed border-slate-300 hover:border-primary-400 transition-colors p-8 text-center cursor-pointer relative">
+                                <input type="file" id="fileInput" class="hidden" accept="image/jpeg,image/png" multiple />
+                                
+                                <!-- Default Upload State -->
+                                <div id="uploadDefault" class="space-y-4">
+                                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto">
+                                        <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-medium text-text-primary mb-2">छवि अपलोड गर्नुहोस्</h3>
+                                        <p class="text-text-secondary mb-4">यहाँ क्लिक गर्नुहोस् वा फाइल ड्र्याग गर्नुहोस्</p>
+                                        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                                            <button onclick="selectFromGallery()" class="medical-button-secondary flex items-center justify-center">
+                                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                                </svg>
+                                                ग्यालेरी
+                                            </button>
+                                            <button onclick="openCamera()" class="medical-button-secondary flex items-center justify-center">
+                                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                </svg>
+                                                क्यामेरा
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-text-secondary">JPEG, PNG मात्र • अधिकतम 10MB</p>
+                                </div>
+
+                                <!-- Upload Progress -->
+                                <div id="uploadProgress" class="hidden space-y-4">
+                                    <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto">
+                                        <svg class="w-6 h-6 text-primary-600 animate-spin" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-text-primary font-medium">अपलोड हुँदैछ...</p>
+                                        <div class="w-full bg-slate-200 rounded-full h-2 mt-2">
+                                            <div id="progressBar" class="bg-primary-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                                        </div>
+                                        <button onclick="cancelUpload()" class="text-sm text-error-600 hover:text-error-700 mt-2">रद्द गर्नुहोस्</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Preview Area -->
+                        <section id="previewSection" class="hidden">
+                            <h3 class="text-lg font-medium text-text-primary mb-4">छवि पूर्वावलोकन</h3>
+                            <div class="medical-card p-4">
+                                <div id="imagePreview" class="relative">
+                                    <!-- Preview images will be inserted here -->
+                                </div>
+                                
+                                <!-- Image Tools -->
+                                <div class="flex justify-center gap-2 mt-4 pt-4 border-t border-slate-200">
+                                    <button onclick="rotateImage()" class="medical-button-secondary text-sm">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                        </svg>
+                                        घुमाउनुहोस्
+                                    </button>
+                                    <button onclick="removeImage()" class="medical-button-secondary text-sm text-error-600">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                        </svg>
+                                        हटाउनुहोस्
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Warning System -->
+                        <section id="warningSection" class="hidden">
+                            <div class="bg-error-50 border-2 border-error-200 rounded-lg p-4">
+                                <div class="flex items-start">
+                                    <svg class="w-5 h-5 text-error-600 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                                    </svg>
+                                    <div>
+                                        <h4 class="font-medium text-error-800 mb-2">संवेदनशील सामग्री चेतावनी</h4>
+                                        <p class="text-sm text-error-700 mb-3">
+                                            यो छवि संवेदनशील चिकित्सा सामग्री समावेश गर्न सक्छ। कृपया सुनिश्चित गर्नुहोस् कि यो उपयुक्त छ र व्यक्तिगत गोपनीयता जानकारी समावेश गर्दैन।
+                                        </p>
+                                        <div class="flex items-center">
+                                            <input type="checkbox" id="acknowledgeRisk" class="mr-2" />
+                                            <label for="acknowledgeRisk" class="text-sm text-error-700">म जोखिम बुझ्छु र जारी राख्न चाहन्छु</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Guidelines Section -->
+                    <div class="space-y-6">
+                        <!-- Educational Content -->
+                        <section>
+                            <div class="medical-card p-6">
+                                <h3 class="text-lg font-medium text-text-primary mb-4 flex items-center">
+                                    <svg class="w-5 h-5 text-accent-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    उपयोगी छवि दिशानिर्देश
+                                </h3>
+                                
+                                <!-- Helpful Images -->
+                                <div class="mb-6">
+                                    <h4 class="font-medium text-accent-600 mb-3">सहायक छविहरू:</h4>
+                                    <ul class="space-y-2 text-sm text-text-secondary">
+                                        <li class="flex items-start">
+                                            <svg class="w-4 h-4 text-accent-500 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                            </svg>
+                                            छालाको अवस्था वा चोटपटक
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-4 h-4 text-accent-500 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                            </svg>
+                                            औषधिको लेबल वा प्याकेजिङ
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-4 h-4 text-accent-500 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                            </svg>
+                                            चिकित्सा रिपोर्ट वा परीक्षण परिणाम
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-4 h-4 text-accent-500 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                            </svg>
+                                            दृश्यमान लक्षण वा सूजन
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Avoid Images -->
+                                <div>
+                                    <h4 class="font-medium text-error-600 mb-3">बेवास्ता गर्नुहोस्:</h4>
+                                    <ul class="space-y-2 text-sm text-text-secondary">
+                                        <li class="flex items-start">
+                                            <svg class="w-4 h-4 text-error-500 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                            </svg>
+                                            अत्यधिक ग्राफिक वा डरलाग्दो छविहरू
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-4 h-4 text-error-500 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                            </svg>
+                                            व्यक्तिगत पहिचान जानकारी
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-4 h-4 text-error-500 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                            </svg>
+                                            अनुपयुक्त वा निजी क्षेत्रका छविहरू
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-4 h-4 text-error-500 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                            </svg>
+                                            धमिलो वा अस्पष्ट छविहरू
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Privacy Notice -->
+                        <section>
+                            <div class="bg-warning-50 border border-warning-200 rounded-lg p-4">
+                                <div class="flex items-start">
+                                    <svg class="w-5 h-5 text-warning-600 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                    </svg>
+                                    <div>
+                                        <h4 class="font-medium text-warning-800 mb-2">गोपनीयता सूचना</h4>
+                                        <p class="text-sm text-warning-700">
+                                            तपाईंका छविहरू सुरक्षित रूपमा प्रशोधन गरिन्छ र विश्लेषण पछि स्वचालित रूपमा मेटाइन्छ। हामी तपाईंको व्यक्तिगत स्वास्थ्य जानकारी संग्रह वा भण्डारण गर्दैनौं।
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Sample Images -->
+                        <section>
+                            <h3 class="text-lg font-medium text-text-primary mb-4">उदाहरण छविहरू</h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="relative">
+                                    <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?q=80&w=1000&auto=format&fit=crop" alt="Medical consultation example" class="w-full h-24 object-cover rounded-lg" onerror="this.src='https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=400'; this.onerror=null;" />
+                                    <div class="absolute inset-0 bg-black bg-opacity-40 rounded-lg flex items-center justify-center">
+                                        <span class="text-white text-xs font-medium">चिकित्सा परामर्श</span>
+                                    </div>
+                                </div>
+                                <div class="relative">
+                                    <img src="https://images.pixabay.com/photo/2017/03/25/23/32/pills-2174413_1280.jpg?q=80&w=1000&auto=format&fit=crop" alt="Medicine label example" class="w-full h-24 object-cover rounded-lg" onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=1000&auto=format&fit=crop'; this.onerror=null;" />
+                                    <div class="absolute inset-0 bg-black bg-opacity-40 rounded-lg flex items-center justify-center">
+                                        <span class="text-white text-xs font-medium">औषधि लेबल</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- Medical Disclaimer -->
+                <section class="mt-8 pt-6 border-t border-slate-200">
+                    <div class="bg-primary-50 border border-primary-200 rounded-lg p-4">
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-600 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <div>
+                                <h4 class="font-medium text-primary-800 mb-2">महत्वपूर्ण चिकित्सा अस्वीकरण</h4>
+                                <p class="text-sm text-primary-700 leading-relaxed">
+                                    यो छवि विश्लेषण प्रारम्भिक मार्गदर्शनका लागि मात्र हो र निदानात्मक उपकरण होइन। गम्भीर स्वास्थ्य समस्याका लागि सधैं योग्य चिकित्सकको सल्लाह लिनुहोस्। आपतकालीन अवस्थामा तुरुन्त चिकित्सा सहायता खोज्नुहोस्।
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Action Buttons -->
+                <section class="mt-8 flex flex-col sm:flex-row gap-4 justify-end">
+                    <button onclick="closeModal()" class="medical-button-secondary px-6 py-3">
+                        रद्द गर्नुहोस्
+                    </button>
+                    <button id="analyzeButton" onclick="analyzeImage()" disabled class="medical-button-primary px-6 py-3 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <span class="flex items-center justify-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                            अपलोड र विश्लेषण गर्नुहोस्
+                        </span>
+                    </button>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="fixed top-4 right-4 z-50 space-y-2"></div>
+
+    <!-- JavaScript for Image Upload and Analysis -->
+    <script>
+        let uploadedFiles = [];
+        let currentRotation = 0;
+
+        // Initialize modal
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            loadLanguagePreferences();
+        });
+
+        function setupEventListeners() {
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+
+            // Drag and drop events
+            uploadArea.addEventListener('dragover', handleDragOver);
+            uploadArea.addEventListener('dragleave', handleDragLeave);
+            uploadArea.addEventListener('drop', handleDrop);
+            uploadArea.addEventListener('click', () => fileInput.click());
+
+            // File input change
+            fileInput.addEventListener('change', handleFileSelect);
+
+            // Risk acknowledgment
+            document.getElementById('acknowledgeRisk').addEventListener('change', toggleAnalyzeButton);
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('border-primary-400', 'bg-primary-50');
+        }
+
+        function handleDragLeave(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('border-primary-400', 'bg-primary-50');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('border-primary-400', 'bg-primary-50');
+            
+            const files = Array.from(e.dataTransfer.files);
+            processFiles(files);
+        }
+
+        function handleFileSelect(e) {
+            const files = Array.from(e.target.files);
+            processFiles(files);
+        }
+
+        function selectFromGallery() {
+            document.getElementById('fileInput').click();
+        }
+
+        function openCamera() {
+            // For demo purposes, we'll simulate camera functionality
+            showToast('कैमेरा सुविधा विकास अन्तर्गत छ। कृपया ग्यालेरीबाट छवि चयन गर्नुहोस्।', 'warning');
+        }
+
+        function processFiles(files) {
+            // Validate files
+            const validFiles = files.filter(file => validateFile(file));
+            
+            if (validFiles.length === 0) {
+                showToast('कुनै मान्य छवि फाइल फेला परेन।', 'error');
+                return;
+            }
+
+            // Show upload progress
+            showUploadProgress();
+
+            // Simulate upload process
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 10;
+                updateProgress(progress);
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    setTimeout(() => {
+                        completeUpload(validFiles);
+                    }, 500);
+                }
+            }, 200);
+        }
+
+        function validateFile(file) {
+            // Check file type
+            const allowedTypes = ['image/jpeg', 'image/png'];
+            if (!allowedTypes.includes(file.type)) {
+                showToast(`असमर्थित फाइल प्रकार: ${file.name}`, 'error');
+                return false;
+            }
+
+            // Check file size (10MB limit)
+            const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+            if (file.size > maxSize) {
+                showToast(`फाइल धेरै ठूलो छ: ${file.name}`, 'error');
+                return false;
+            }
+
+            return true;
+        }
+
+        function showUploadProgress() {
+            document.getElementById('uploadDefault').classList.add('hidden');
+            document.getElementById('uploadProgress').classList.remove('hidden');
+        }
+
+        function updateProgress(progress) {
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+
+        function completeUpload(files) {
+            uploadedFiles = files;
+            
+            // Hide progress
+            document.getElementById('uploadProgress').classList.add('hidden');
+            
+            // Show preview
+            showImagePreview(files);
+            
+            // Check for sensitive content (simulated)
+            if (Math.random() > 0.7) { // 30% chance of triggering warning
+                showSensitiveContentWarning();
+            } else {
+                enableAnalyzeButton();
+            }
+            
+            showToast('छवि सफलतापूर्वक अपलोड भयो।', 'success');
+        }
+
+        function showImagePreview(files) {
+            const previewContainer = document.getElementById('imagePreview');
+            const previewSection = document.getElementById('previewSection');
+            
+            previewContainer.innerHTML = '';
+            
+            files.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageDiv = document.createElement('div');
+                    imageDiv.className = 'relative mb-4';
+                    imageDiv.innerHTML = `
+                        <img src="${e.target.result}" 
+                             alt="Uploaded image ${index + 1}" 
+                             class="w-full h-48 object-cover rounded-lg shadow-medical-sm"
+                             id="previewImage${index}">
+                        <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
+                            ${(file.size / 1024 / 1024).toFixed(1)}MB
+                        </div>
+                    `;
+                    previewContainer.appendChild(imageDiv);
+                };
+                reader.readAsDataURL(file);
+            });
+            
+            previewSection.classList.remove('hidden');
+        }
+
+        function showSensitiveContentWarning() {
+            document.getElementById('warningSection').classList.remove('hidden');
+            document.getElementById('analyzeButton').disabled = true;
+        }
+
+        function toggleAnalyzeButton() {
+            const checkbox = document.getElementById('acknowledgeRisk');
+            const button = document.getElementById('analyzeButton');
+            
+            if (checkbox.checked && uploadedFiles.length > 0) {
+                enableAnalyzeButton();
+            } else {
+                button.disabled = true;
+            }
+        }
+
+        function enableAnalyzeButton() {
+            const button = document.getElementById('analyzeButton');
+            button.disabled = false;
+        }
+
+        function rotateImage() {
+            currentRotation += 90;
+            const images = document.querySelectorAll('[id^="previewImage"]');
+            images.forEach(img => {
+                img.style.transform = `rotate(${currentRotation}deg)`;
+            });
+        }
+
+        function removeImage() {
+            uploadedFiles = [];
+            currentRotation = 0;
+            
+            // Reset UI
+            document.getElementById('previewSection').classList.add('hidden');
+            document.getElementById('warningSection').classList.add('hidden');
+            document.getElementById('uploadDefault').classList.remove('hidden');
+            document.getElementById('analyzeButton').disabled = true;
+            document.getElementById('fileInput').value = '';
+            
+            showToast('छवि हटाइयो।', 'success');
+        }
+
+        function cancelUpload() {
+            // Reset upload state
+            document.getElementById('uploadProgress').classList.add('hidden');
+            document.getElementById('uploadDefault').classList.remove('hidden');
+            document.getElementById('progressBar').style.width = '0%';
+            
+            uploadedFiles = [];
+            showToast('अपलोड रद्द गरियो।', 'warning');
+        }
+
+        function analyzeImage() {
+            if (uploadedFiles.length === 0) {
+                showToast('कृपया पहिले छवि अपलोड गर्नुहोस्।', 'error');
+                return;
+            }
+
+            // Show analysis in progress
+            const button = document.getElementById('analyzeButton');
+            const originalText = button.innerHTML;
+            button.innerHTML = `
+                <span class="flex items-center justify-center">
+                    <svg class="w-4 h-4 mr-2 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    विश्लेषण गर्दै...
+                </span>
+            `;
+            button.disabled = true;
+
+            // Simulate analysis process
+            setTimeout(() => {
+                // Store analysis data
+                localStorage.setItem('imageAnalysisData', JSON.stringify({
+                    timestamp: new Date().toISOString(),
+                    fileCount: uploadedFiles.length,
+                    analysisComplete: true
+                }));
+
+                // Navigate back to chat with results
+                window.location.href = 'main_chat_interface.html?analysis=complete';
+            }, 3000);
+        }
+
+        function closeModal() {
+            // Clean up any uploaded files
+            uploadedFiles = [];
+            
+            // Navigate back to main chat
+            window.location.href = 'main_chat_interface.html';
+        }
+
+        function showToast(message, type = 'info') {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            const colors = {
+                success: 'bg-success-50 border-success-200 text-success-800',
+                error: 'bg-error-50 border-error-200 text-error-800',
+                warning: 'bg-warning-50 border-warning-200 text-warning-800',
+                info: 'bg-primary-50 border-primary-200 text-primary-800'
+            };
+            
+            toast.className = `medical-toast ${colors[type]} border rounded-lg p-4 shadow-medical-md transform translate-x-full transition-transform duration-300`;
+            toast.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium">${message}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" class="ml-3 text-current opacity-70 hover:opacity-100">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full');
+                toast.classList.add('translate-x-0');
+            }, 100);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.classList.add('translate-x-full');
+                    setTimeout(() => {
+                        if (toast.parentElement) {
+                            toast.remove();
+                        }
+                    }, 300);
+                }
+            }, 5000);
+        }
+
+        function loadLanguagePreferences() {
+            const savedLang = localStorage.getItem('selectedLanguage') || 'ne';
+            // Language content would be loaded here based on saved preference
+            // For demo purposes, we're keeping the Nepali content as default
+        }
+
+        // Accessibility improvements
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Focus management
+        document.querySelectorAll('button, input[type="checkbox"]').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.classList.add('ring-2', 'ring-primary-500', 'ring-offset-2');
+            });
+            
+            element.addEventListener('blur', function() {
+                this.classList.remove('ring-2', 'ring-primary-500', 'ring-offset-2');
+            });
+        });
+    </script>
+</body>
+</html>

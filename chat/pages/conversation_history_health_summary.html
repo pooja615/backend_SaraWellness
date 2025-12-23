@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conversation History & Health Summary - Sara Wellness</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fsarawelln3380back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-surface min-h-screen font-source">
+    <!-- Main Container -->
+    <div class="min-h-screen flex flex-col">
+        <!-- Header Section -->
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+            <div class="max-w-7xl mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <!-- Logo and Title -->
+                    <div class="flex items-center space-x-3">
+                        <a href="language_selection_welcome.html" class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center shadow-medical-sm">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                </svg>
+                            </div>
+                            <div class="hidden sm:block">
+                                <h1 class="text-lg font-inter font-semibold text-text-primary">Sara Wellness</h1>
+                                <p class="text-xs text-text-secondary">स्वास्थ्य इतिहास</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Navigation Actions -->
+                    <div class="flex items-center space-x-2">
+                        <!-- Search Toggle -->
+                        <button id="searchToggle" class="medical-button-secondary p-2 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </button>
+
+                        <!-- Filter Toggle -->
+                        <button id="filterToggle" class="medical-button-secondary p-2 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.414A1 1 0 013 6.707V4z"/>
+                            </svg>
+                        </button>
+
+                        <!-- Menu -->
+                        <div class="relative">
+                            <button id="menuToggle" class="medical-button-secondary p-2 rounded-lg">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                                </svg>
+                            </button>
+                            
+                            <!-- Dropdown Menu -->
+                            <div id="menuDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-medical-lg border border-slate-200 hidden z-50">
+                                <div class="py-1">
+                                    <a href="main_chat_interface.html" class="flex items-center px-4 py-2 text-sm text-text-primary hover:bg-slate-50">
+                                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                        </svg>
+                                        नयाँ च्याट
+                                    </a>
+                                    <a href="health_resource_directory.html" class="flex items-center px-4 py-2 text-sm text-text-primary hover:bg-slate-50">
+                                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H5m4 0v-5a1 1 0 011-1h4a1 1 0 011 1v5m-4 0h4"/>
+                                        </svg>
+                                        स्वास्थ्य संसाधन
+                                    </a>
+                                    <a href="image_upload_analysis.html" class="flex items-center px-4 py-2 text-sm text-text-primary hover:bg-slate-50">
+                                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                        </svg>
+                                        छवि विश्लेषण
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Bar (Hidden by default) -->
+                <div id="searchBar" class="mt-4 hidden">
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="वार्तालाप खोज्नुहोस्..." class="medical-input pl-10 pr-4" />
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="w-4 h-4 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Bar (Hidden by default) -->
+                <div id="filterBar" class="mt-4 hidden">
+                    <div class="flex flex-wrap gap-3">
+                        <select id="dateFilter" class="medical-input text-sm">
+                            <option value>सबै मिति</option>
+                            <option value="today">आज</option>
+                            <option value="week">यो हप्ता</option>
+                            <option value="month">यो महिना</option>
+                        </select>
+                        <select id="topicFilter" class="medical-input text-sm">
+                            <option value>सबै विषय</option>
+                            <option value="physical">शारीरिक स्वास्थ्य</option>
+                            <option value="mental">मानसिक स्वास्थ्य</option>
+                            <option value="general">सामान्य सल्लाह</option>
+                        </select>
+                        <select id="urgencyFilter" class="medical-input text-sm">
+                            <option value>सबै प्राथमिकता</option>
+                            <option value="high">उच्च</option>
+                            <option value="medium">मध्यम</option>
+                            <option value="low">कम</option>
+                        </select>
+                        <button id="clearFilters" class="medical-button-secondary text-sm px-3 py-1">
+                            फिल्टर हटाउनुहोस्
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <div class="max-w-7xl mx-auto px-4 py-6">
+                <!-- Desktop Layout -->
+                <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+                    <!-- Sidebar (Desktop) -->
+                    <aside class="hidden lg:block lg:col-span-4 xl:col-span-3">
+                        <div class="sticky top-24">
+                            <!-- Quick Actions -->
+                            <div class="medical-card p-4 mb-6">
+                                <h3 class="font-inter font-medium text-text-primary mb-4">द्रुत कार्यहरू</h3>
+                                <div class="space-y-3">
+                                    <a href="main_chat_interface.html" class="medical-button-primary w-full text-center py-3 rounded-lg">
+                                        <div class="flex items-center justify-center">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                            </svg>
+                                            नयाँ स्वास्थ्य च्याट
+                                        </div>
+                                    </a>
+                                    <button id="generateSummaryBtn" class="medical-button-secondary w-full py-3 rounded-lg">
+                                        <div class="flex items-center justify-center">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                            </svg>
+                                            स्वास्थ्य सारांश
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Privacy Controls -->
+                            <div class="medical-card p-4">
+                                <h3 class="font-inter font-medium text-text-primary mb-4 flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                    </svg>
+                                    गोपनीयता नियन्त्रण
+                                </h3>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-text-secondary">स्थानीय भण्डारण</span>
+                                        <span class="text-accent-600 font-medium">सक्रिय</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-text-secondary">डाटा एन्क्रिप्शन</span>
+                                        <span class="text-accent-600 font-medium">सुरक्षित</span>
+                                    </div>
+                                    <button id="clearAllData" class="text-error-600 hover:text-error-700 text-sm font-medium">
+                                        सबै डाटा मेटाउनुहोस्
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Main Content Area -->
+                    <div class="lg:col-span-8 xl:col-span-9">
+                        <!-- Mobile Quick Actions -->
+                        <div class="lg:hidden mb-6">
+                            <div class="grid grid-cols-2 gap-3">
+                                <a href="main_chat_interface.html" class="medical-button-primary text-center py-3 rounded-lg">
+                                    <div class="flex items-center justify-center">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                        </svg>
+                                        नयाँ च्याट
+                                    </div>
+                                </a>
+                                <button id="generateSummaryBtnMobile" class="medical-button-secondary py-3 rounded-lg">
+                                    <div class="flex items-center justify-center">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                        </svg>
+                                        सारांश
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Conversation History -->
+                        <section class="mb-8">
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-xl font-inter font-semibold text-text-primary">वार्तालाप इतिहास</h2>
+                                <div class="text-sm text-text-secondary">
+                                    <span id="conversationCount">12</span> वार्तालापहरू
+                                </div>
+                            </div>
+
+                            <!-- Conversation Cards -->
+                            <div id="conversationList" class="space-y-4">
+                                <!-- Conversation Card 1 -->
+                                <div class="medical-card conversation-card" data-date="2025-08-28" data-topic="physical" data-urgency="medium">
+                                    <div class="p-4">
+                                        <div class="flex items-start justify-between mb-3">
+                                            <div class="flex-1">
+                                                <div class="flex items-center space-x-2 mb-2">
+                                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                                                        शारीरिक स्वास्थ्य
+                                                    </span>
+                                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-warning-100 text-warning-800">
+                                                        मध्यम प्राथमिकता
+                                                    </span>
+                                                </div>
+                                                <h3 class="font-medium text-text-primary mb-1">टाउको दुखाइ र चक्कर लाग्ने समस्या</h3>
+                                                <p class="text-sm text-text-secondary mb-2">२८ अगस्त २०२५, बिहान ९:३०</p>
+                                                <p class="text-sm text-text-secondary line-clamp-2">बिहानदेखि टाउको दुखाइ र हल्का चक्कर लागिरहेको छ। काम गर्दा समस्या बढ्छ।</p>
+                                            </div>
+                                            <div class="flex items-center space-x-2 ml-4">
+                                                <button class="expand-btn text-secondary-400 hover:text-secondary-600 p-1">
+                                                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                                    </svg>
+                                                </button>
+                                                <div class="relative">
+                                                    <button class="options-btn text-secondary-400 hover:text-secondary-600 p-1">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                                                        </svg>
+                                                    </button>
+                                                    <div class="options-menu absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-medical-lg border border-slate-200 hidden z-10">
+                                                        <div class="py-1">
+                                                            <button class="continue-chat w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-slate-50">
+                                                                वार्तालाप जारी राख्नुहोस्
+                                                            </button>
+                                                            <button class="export-pdf w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-slate-50">
+                                                                PDF निर्यात गर्नुहोस्
+                                                            </button>
+                                                            <button class="share-conversation w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-slate-50">
+                                                                साझेदारी गर्नुहोस्
+                                                            </button>
+                                                            <hr class="my-1" />
+                                                            <button class="delete-conversation w-full text-left px-4 py-2 text-sm text-error-600 hover:bg-error-50">
+                                                                मेटाउनुहोस्
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Expanded Content -->
+                                        <div class="expanded-content hidden mt-4 pt-4 border-t border-slate-200">
+                                            <div class="space-y-4">
+                                                <!-- Key Recommendations -->
+                                                <div>
+                                                    <h4 class="font-medium text-text-primary mb-2 flex items-center">
+                                                        <svg class="w-4 h-4 mr-2 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                        </svg>
+                                                        मुख्य सिफारिसहरू
+                                                    </h4>
+                                                    <ul class="text-sm text-text-secondary space-y-1 ml-6">
+                                                        <li>• पर्याप्त पानी पिउनुहोस् (दिनमा ८-१० गिलास)</li>
+                                                        <li>• नियमित आराम लिनुहोस्</li>
+                                                        <li>• यदि समस्या बढ्छ भने चिकित्सकसँग सल्लाह लिनुहोस्</li>
+                                                    </ul>
+                                                </div>
+
+                                                <!-- Symptoms Discussed -->
+                                                <div>
+                                                    <h4 class="font-medium text-text-primary mb-2 flex items-center">
+                                                        <svg class="w-4 h-4 mr-2 text-warning-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                                                        </svg>
+                                                        छलफल गरिएका लक्षणहरू
+                                                    </h4>
+                                                    <div class="flex flex-wrap gap-2 ml-6">
+                                                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs bg-slate-100 text-slate-700">टाउको दुखाइ</span>
+                                                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs bg-slate-100 text-slate-700">चक्कर लाग्नु</span>
+                                                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs bg-slate-100 text-slate-700">कमजोरी</span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Follow-up Actions -->
+                                                <div>
+                                                    <h4 class="font-medium text-text-primary mb-2 flex items-center">
+                                                        <svg class="w-4 h-4 mr-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                        </svg>
+                                                        फलो-अप कार्यहरू
+                                                    </h4>
+                                                    <p class="text-sm text-text-secondary ml-6">२४ घण्टामा सुधार नभएमा स्वास्थ्य केन्द्रमा जाँच गराउनुहोस्।</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Conversation Card 2 -->
+                                <div class="medical-card conversation-card" data-date="2025-08-27" data-topic="mental" data-urgency="low">
+                                    <div class="p-4">
+                                        <div class="flex items-start justify-between mb-3">
+                                            <div class="flex-1">
+                                                <div class="flex items-center space-x-2 mb-2">
+                                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-accent-100 text-accent-800">
+                                                        मानसिक स्वास्थ्य
+                                                    </span>
+                                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-success-100 text-success-800">
+                                                        कम प्राथमिकता
+                                                    </span>
+                                                </div>
+                                                <h3 class="font-medium text-text-primary mb-1">तनाव व्यवस्थापन र निद्राको समस्या</h3>
+                                                <p class="text-sm text-text-secondary mb-2">२७ अगस्त २०२५, साँझ ७:१५</p>
+                                                <p class="text-sm text-text-secondary line-clamp-2">कामको तनावले गर्दा राम्रो निद्रा आउँदैन। दिमागमा सधैं चिन्ता रहन्छ।</p>
+                                            </div>
+                                            <div class="flex items-center space-x-2 ml-4">
+                                                <button class="expand-btn text-secondary-400 hover:text-secondary-600 p-1">
+                                                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                                    </svg>
+                                                </button>
+                                                <div class="relative">
+                                                    <button class="options-btn text-secondary-400 hover:text-secondary-600 p-1">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                                                        </svg>
+                                                    </button>
+                                                    <div class="options-menu absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-medical-lg border border-slate-200 hidden z-10">
+                                                        <div class="py-1">
+                                                            <button class="continue-chat w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-slate-50">
+                                                                वार्तालाप जारी राख्नुहोस्
+                                                            </button>
+                                                            <button class="export-pdf w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-slate-50">
+                                                                PDF निर्यात गर्नुहोस्
+                                                            </button>
+                                                            <button class="share-conversation w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-slate-50">
+                                                                साझेदारी गर्नुहोस्
+                                                            </button>
+                                                            <hr class="my-1" />
+                                                            <button class="delete-conversation w-full text-left px-4 py-2 text-sm text-error-600 hover:bg-error-50">
+                                                                मेटाउनुहोस्
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Expanded Content -->
+                                        <div class="expanded-content hidden mt-4 pt-4 border-t border-slate-200">
+                                            <div class="space-y-4">
+                                                <!-- Key Recommendations -->
+                                                <div>
+                                                    <h4 class="font-medium text-text-primary mb-2 flex items-center">
+                                                        <svg class="w-4 h-4 mr-2 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                        </svg>
+                                                        मुख्य सिफारिसहरू
+                                                    </h4>
+                                                    <ul class="text-sm text-text-secondary space-y-1 ml-6">
+                                                        <li>• दैनिक ध्यान अभ्यास गर्नुहोस् (१०-१५ मिनेट)</li>
+                                                        <li>• निद्रा अघि मोबाइल प्रयोग नगर्नुहोस्</li>
+                                                        <li>• नियमित व्यायाम गर्नुहोस्</li>
+                                                    </ul>
+                                                </div>
+
+                                                <!-- Symptoms Discussed -->
+                                                <div>
+                                                    <h4 class="font-medium text-text-primary mb-2 flex items-center">
+                                                        <svg class="w-4 h-4 mr-2 text-warning-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                                                        </svg>
+                                                        छलफल गरिएका लक्षणहरू
+                                                    </h4>
+                                                    <div class="flex flex-wrap gap-2 ml-6">
+                                                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs bg-slate-100 text-slate-700">तनाव</span>
+                                                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs bg-slate-100 text-slate-700">निद्राको समस्या</span>
+                                                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs bg-slate-100 text-slate-700">चिन्ता</span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Follow-up Actions -->
+                                                <div>
+                                                    <h4 class="font-medium text-text-primary mb-2 flex items-center">
+                                                        <svg class="w-4 h-4 mr-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                        </svg>
+                                                        फलो-अप कार्यहरू
+                                                    </h4>
+                                                    <p class="text-sm text-text-secondary ml-6">एक हप्तामा सुधार नभएमा मानसिक स्वास्थ्य विशेषज्ञसँग सल्लाह लिनुहोस्।</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Load More Button -->
+                                <div class="text-center pt-4">
+                                    <button id="loadMoreBtn" class="medical-button-secondary px-6 py-2 rounded-lg">
+                                        थप वार्तालापहरू लोड गर्नुहोस्
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Empty State (Hidden by default) -->
+                        <div id="emptyState" class="text-center py-12 hidden">
+                            <div class="max-w-md mx-auto">
+                                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3" alt="No conversations" class="w-48 h-32 object-cover rounded-lg mx-auto mb-6 opacity-50" onerror="this.src='https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+                                <h3 class="text-lg font-medium text-text-primary mb-2">कुनै वार्तालाप फेला परेन</h3>
+                                <p class="text-text-secondary mb-6">तपाईंको स्वास्थ्य यात्रा सुरु गर्न नयाँ च्याट सुरु गर्नुहोस्।</p>
+                                <a href="main_chat_interface.html" class="medical-button-primary px-6 py-3 rounded-lg inline-flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                    </svg>
+                                    पहिलो च्याट सुरु गर्नुहोस्
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white border-t border-slate-200 mt-12">
+            <div class="max-w-7xl mx-auto px-4 py-6">
+                <div class="text-center">
+                    <p class="text-sm text-text-secondary mb-2">
+                        © 2025 Sara Wellness. सबै अधिकार सुरक्षित।
+                    </p>
+                    <p class="text-xs text-text-secondary">
+                        तपाईंको स्वास्थ्य डाटा स्थानीय रूपमा एन्क्रिप्ट गरिएको छ र सुरक्षित छ।
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Health Summary Modal -->
+    <div id="summaryModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div class="flex items-center justify-between p-6 border-b border-slate-200">
+                <h3 class="text-xl font-inter font-semibold text-text-primary">स्वास्थ्य सारांश रिपोर्ट</h3>
+                <button id="closeSummaryModal" class="text-secondary-400 hover:text-secondary-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto max-h-[70vh]" id="summaryContent">
+                <!-- Summary content will be generated here -->
+                <div class="space-y-6">
+                    <!-- Patient Information -->
+                    <div class="medical-card p-4">
+                        <h4 class="font-medium text-text-primary mb-3 flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                            बिरामी जानकारी
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <span class="text-text-secondary">रिपोर्ट मिति:</span>
+                                <span class="ml-2 font-medium">२८ अगस्त २०२५</span>
+                            </div>
+                            <div>
+                                <span class="text-text-secondary">कुल वार्तालापहरू:</span>
+                                <span class="ml-2 font-medium">१२</span>
+                            </div>
+                            <div>
+                                <span class="text-text-secondary">अवधि:</span>
+                                <span class="ml-2 font-medium">१५ अगस्त - २८ अगस्त २०२५</span>
+                            </div>
+                            <div>
+                                <span class="text-text-secondary">मुख्य चिन्ताहरू:</span>
+                                <span class="ml-2 font-medium">३</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Health Summary -->
+                    <div class="medical-card p-4">
+                        <h4 class="font-medium text-text-primary mb-3 flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            मुख्य स्वास्थ्य सारांश
+                        </h4>
+                        <div class="space-y-3 text-sm">
+                            <div>
+                                <h5 class="font-medium text-text-primary mb-2">शारीरिक स्वास्थ्य:</h5>
+                                <ul class="space-y-1 ml-4 text-text-secondary">
+                                    <li>• टाउको दुखाइ र चक्कर लाग्ने समस्या (२८ अगस्त)</li>
+                                    <li>• पेट दुखाइ र पाचन समस्या (२५ अगस्त)</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-medium text-text-primary mb-2">मानसिक स्वास्थ्य:</h5>
+                                <ul class="space-y-1 ml-4 text-text-secondary">
+                                    <li>• तनाव व्यवस्थापन र निद्राको समस्या (२७ अगस्त)</li>
+                                    <li>• कामको चिन्ता र मानसिक दबाब (२३ अगस्त)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="medical-card p-4">
+                        <h4 class="font-medium text-text-primary mb-3 flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-warning-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                            </svg>
+                            समग्र सिफारिसहरू
+                        </h4>
+                        <ul class="space-y-2 text-sm text-text-secondary">
+                            <li class="flex items-start">
+                                <span class="inline-block w-2 h-2 bg-accent-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                नियमित चिकित्सक जाँच गराउनुहोस् (३ महिनामा एक पटक)
+                            </li>
+                            <li class="flex items-start">
+                                <span class="inline-block w-2 h-2 bg-accent-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                दैनिक व्यायाम र स्वस्थ आहार अपनाउनुहोस्
+                            </li>
+                            <li class="flex items-start">
+                                <span class="inline-block w-2 h-2 bg-accent-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                तनाव व्यवस्थापनका लागि ध्यान अभ्यास गर्नुहोस्
+                            </li>
+                            <li class="flex items-start">
+                                <span class="inline-block w-2 h-2 bg-accent-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                पर्याप्त निद्रा र आराम लिनुहोस् (७-८ घण्टा)
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Medical Disclaimer -->
+                    <div class="bg-error-50 border-l-4 border-error-600 p-4 rounded-r-lg">
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-error-600 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                            </svg>
+                            <div>
+                                <h4 class="font-medium text-error-800 mb-2">महत्वपूर्ण चिकित्सा अस्वीकरण</h4>
+                                <p class="text-sm text-error-700 leading-relaxed">
+                                    यो रिपोर्ट केवल सूचनाको उद्देश्यका लागि हो र चिकित्सकको सल्लाहको विकल्प होइन। गम्भीर स्वास्थ्य समस्याका लागि योग्य चिकित्सकको सल्लाह लिनुहोस्।
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end space-x-3 p-6 border-t border-slate-200">
+                <button id="printSummary" class="medical-button-secondary px-4 py-2 rounded-lg">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                    </svg>
+                    प्रिन्ट गर्नुहोस्
+                </button>
+                <button id="downloadPDF" class="medical-button-primary px-4 py-2 rounded-lg">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    PDF डाउनलोड गर्नुहोस्
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-md w-full">
+            <div class="p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-error-100 rounded-full flex items-center justify-center mr-3">
+                        <svg class="w-5 h-5 text-error-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-medium text-text-primary">वार्तालाप मेटाउनुहोस्</h3>
+                </div>
+                <p class="text-text-secondary mb-6">
+                    के तपाईं यो वार्तालाप स्थायी रूपमा मेटाउन चाहनुहुन्छ? यो कार्य फिर्ता गर्न सकिँदैन।
+                </p>
+                <div class="flex items-center justify-end space-x-3">
+                    <button id="cancelDelete" class="medical-button-secondary px-4 py-2 rounded-lg">
+                        रद्द गर्नुहोस्
+                    </button>
+                    <button id="confirmDelete" class="bg-error-600 text-white px-4 py-2 rounded-lg hover:bg-error-700 transition-colors">
+                        मेटाउनुहोस्
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Global variables
+        let currentDeleteTarget = null;
+        let conversations = [];
+        let filteredConversations = [];
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeEventListeners();
+            loadConversations();
+            setupFilters();
+        });
+
+        // Event listeners setup
+        function initializeEventListeners() {
+            // Header toggles
+            document.getElementById('searchToggle').addEventListener('click', toggleSearch);
+            document.getElementById('filterToggle').addEventListener('click', toggleFilter);
+            document.getElementById('menuToggle').addEventListener('click', toggleMenu);
+
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
+
+            // Filter functionality
+            document.getElementById('dateFilter').addEventListener('change', applyFilters);
+            document.getElementById('topicFilter').addEventListener('change', applyFilters);
+            document.getElementById('urgencyFilter').addEventListener('change', applyFilters);
+            document.getElementById('clearFilters').addEventListener('click', clearFilters);
+
+            // Summary generation
+            document.getElementById('generateSummaryBtn').addEventListener('click', generateHealthSummary);
+            document.getElementById('generateSummaryBtnMobile').addEventListener('click', generateHealthSummary);
+
+            // Modal controls
+            document.getElementById('closeSummaryModal').addEventListener('click', closeSummaryModal);
+            document.getElementById('printSummary').addEventListener('click', printSummary);
+            document.getElementById('downloadPDF').addEventListener('click', downloadPDF);
+
+            // Delete confirmation
+            document.getElementById('cancelDelete').addEventListener('click', closeDeleteModal);
+            document.getElementById('confirmDelete').addEventListener('click', confirmDelete);
+
+            // Privacy controls
+            document.getElementById('clearAllData').addEventListener('click', clearAllData);
+
+            // Load more
+            document.getElementById('loadMoreBtn').addEventListener('click', loadMoreConversations);
+
+            // Click outside to close dropdowns
+            document.addEventListener('click', handleOutsideClick);
+        }
+
+        // Toggle functions
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            const filterBar = document.getElementById('filterBar');
+            
+            searchBar.classList.toggle('hidden');
+            if (!searchBar.classList.contains('hidden')) {
+                filterBar.classList.add('hidden');
+                document.getElementById('searchInput').focus();
+            }
+        }
+
+        function toggleFilter() {
+            const filterBar = document.getElementById('filterBar');
+            const searchBar = document.getElementById('searchBar');
+            
+            filterBar.classList.toggle('hidden');
+            if (!filterBar.classList.contains('hidden')) {
+                searchBar.classList.add('hidden');
+            }
+        }
+
+        function toggleMenu() {
+            const dropdown = document.getElementById('menuDropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Search functionality
+        function handleSearch(e) {
+            const query = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.conversation-card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const content = card.querySelector('.line-clamp-2').textContent.toLowerCase();
+                
+                if (title.includes(query) || content.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            updateConversationCount();
+        }
+
+        // Filter functionality
+        function applyFilters() {
+            const dateFilter = document.getElementById('dateFilter').value;
+            const topicFilter = document.getElementById('topicFilter').value;
+            const urgencyFilter = document.getElementById('urgencyFilter').value;
+            
+            const cards = document.querySelectorAll('.conversation-card');
+            
+            cards.forEach(card => {
+                let show = true;
+                
+                // Date filter
+                if (dateFilter) {
+                    const cardDate = card.dataset.date;
+                    const today = new Date().toISOString().split('T')[0];
+                    
+                    switch (dateFilter) {
+                        case 'today':
+                            show = show && cardDate === today;
+                            break;
+                        case 'week':
+                            const weekAgo = new Date();
+                            weekAgo.setDate(weekAgo.getDate() - 7);
+                            show = show && new Date(cardDate) >= weekAgo;
+                            break;
+                        case 'month':
+                            const monthAgo = new Date();
+                            monthAgo.setMonth(monthAgo.getMonth() - 1);
+                            show = show && new Date(cardDate) >= monthAgo;
+                            break;
+                    }
+                }
+                
+                // Topic filter
+                if (topicFilter) {
+                    show = show && card.dataset.topic === topicFilter;
+                }
+                
+                // Urgency filter
+                if (urgencyFilter) {
+                    show = show && card.dataset.urgency === urgencyFilter;
+                }
+                
+                card.style.display = show ? 'block' : 'none';
+            });
+
+            updateConversationCount();
+        }
+
+        function clearFilters() {
+            document.getElementById('dateFilter').value = '';
+            document.getElementById('topicFilter').value = '';
+            document.getElementById('urgencyFilter').value = '';
+            document.getElementById('searchInput').value = '';
+            
+            const cards = document.querySelectorAll('.conversation-card');
+            cards.forEach(card => {
+                card.style.display = 'block';
+            });
+
+            updateConversationCount();
+        }
+
+        // Conversation card interactions
+        function setupConversationCards() {
+            // Expand/collapse functionality
+            document.querySelectorAll('.expand-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const card = this.closest('.conversation-card');
+                    const expandedContent = card.querySelector('.expanded-content');
+                    const icon = this.querySelector('svg');
+                    
+                    expandedContent.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                });
+            });
+
+            // Options menu
+            document.querySelectorAll('.options-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const menu = this.nextElementSibling;
+                    
+                    // Close other menus
+                    document.querySelectorAll('.options-menu').forEach(m => {
+                        if (m !== menu) m.classList.add('hidden');
+                    });
+                    
+                    menu.classList.toggle('hidden');
+                });
+            });
+
+            // Continue chat
+            document.querySelectorAll('.continue-chat').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    window.location.href = 'main_chat_interface.html';
+                });
+            });
+
+            // Export PDF
+            document.querySelectorAll('.export-pdf').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    exportConversationPDF(this.closest('.conversation-card'));
+                });
+            });
+
+            // Share conversation
+            document.querySelectorAll('.share-conversation').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    shareConversation(this.closest('.conversation-card'));
+                });
+            });
+
+            // Delete conversation
+            document.querySelectorAll('.delete-conversation').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentDeleteTarget = this.closest('.conversation-card');
+                    document.getElementById('deleteModal').classList.remove('hidden');
+                });
+            });
+        }
+
+        // Load conversations (mock data)
+        function loadConversations() {
+            // Mock conversation data would be loaded here
+            // For now, we'll use the existing HTML cards
+            setupConversationCards();
+            updateConversationCount();
+        }
+
+        // Health summary generation
+        function generateHealthSummary() {
+            document.getElementById('summaryModal').classList.remove('hidden');
+            // In a real app, this would generate actual summary from conversation data
+        }
+
+        function closeSummaryModal() {
+            document.getElementById('summaryModal').classList.add('hidden');
+        }
+
+        function printSummary() {
+            const summaryContent = document.getElementById('summaryContent').innerHTML;
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>स्वास्थ्य सारांश रिपोर्ट</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        .medical-card { border: 1px solid #e2e8f0; padding: 16px; margin: 16px 0; border-radius: 8px; }
+                        .text-primary { color: #1e293b; }
+                        .text-secondary { color: #64748b; }
+                        @media print { body { margin: 0; } }
+                    </style>
+                </head>
+                <body>
+                    <h1>Sara Wellness - स्वास्थ्य सारांश रिपोर्ट</h1>
+                    ${summaryContent}
+                <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        function downloadPDF() {
+            // In a real app, this would generate and download a PDF
+            alert('PDF डाउनलोड सुविधा छिट्टै उपलब्ध हुनेछ।');
+        }
+
+        // Delete functionality
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+            currentDeleteTarget = null;
+        }
+
+        function confirmDelete() {
+            if (currentDeleteTarget) {
+                currentDeleteTarget.remove();
+                updateConversationCount();
+                closeDeleteModal();
+                
+                // Show success message
+                showToast('वार्तालाप सफलतापूर्वक मेटाइयो।', 'success');
+            }
+        }
+
+        // Privacy controls
+        function clearAllData() {
+            if (confirm('के तपाईं सबै स्वास्थ्य डाटा मेटाउन चाहनुहुन्छ? यो कार्य फिर्ता गर्न सकिँदैन।')) {
+                localStorage.clear();
+                document.querySelectorAll('.conversation-card').forEach(card => card.remove());
+                updateConversationCount();
+                showToast('सबै डाटा सफलतापूर्वक मेटाइयो।', 'success');
+            }
+        }
+
+        // Utility functions
+        function updateConversationCount() {
+            const visibleCards = document.querySelectorAll('.conversation-card:not([style*="display: none"])');
+            document.getElementById('conversationCount').textContent = visibleCards.length;
+            
+            // Show/hide empty state
+            const emptyState = document.getElementById('emptyState');
+            const conversationList = document.getElementById('conversationList');
+            
+            if (visibleCards.length === 0) {
+                emptyState.classList.remove('hidden');
+                conversationList.classList.add('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                conversationList.classList.remove('hidden');
+            }
+        }
+
+        function loadMoreConversations() {
+            // Mock loading more conversations
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            loadMoreBtn.textContent = 'लोड गर्दै...';
+            loadMoreBtn.disabled = true;
+            
+            setTimeout(() => {
+                loadMoreBtn.textContent = 'थप वार्तालापहरू लोड गर्नुहोस्';
+                loadMoreBtn.disabled = false;
+                showToast('सबै वार्तालापहरू लोड भइसकेका छन्।', 'info');
+            }, 1000);
+        }
+
+        function exportConversationPDF(card) {
+            // Mock PDF export
+            showToast('PDF निर्यात सुविधा छिट्टै उपलब्ध हुनेछ।', 'info');
+        }
+
+        function shareConversation(card) {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Sara Wellness - स्वास्थ्य वार्तालाप',
+                    text: card.querySelector('h3').textContent,
+                    url: window.location.href
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast('लिङ्क कपी गरियो।', 'success');
+                });
+            }
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `medical-toast show ${type === 'success' ? 'bg-success-50 border-success-200 text-success-800' : 
+                                                   type === 'error' ? 'bg-error-50 border-error-200 text-error-800' : 
+                                                   'bg-primary-50 border-primary-200 text-primary-800'}`;
+            toast.innerHTML = `
+                <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    ${message}
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 250);
+            }, 3000);
+        }
+
+        function handleOutsideClick(e) {
+            // Close dropdowns when clicking outside
+            if (!e.target.closest('#menuToggle') && !e.target.closest('#menuDropdown')) {
+                document.getElementById('menuDropdown').classList.add('hidden');
+            }
+            
+            // Close options menus
+            if (!e.target.closest('.options-btn') && !e.target.closest('.options-menu')) {
+                document.querySelectorAll('.options-menu').forEach(menu => {
+                    menu.classList.add('hidden');
+                });
+            }
+        }
+
+        // Accessibility improvements
+        document.addEventListener('keydown', function(e) {
+            // Close modals with Escape key
+            if (e.key === 'Escape') {
+                if (!document.getElementById('summaryModal').classList.contains('hidden')) {
+                    closeSummaryModal();
+                }
+                if (!document.getElementById('deleteModal').classList.contains('hidden')) {
+                    closeDeleteModal();
+                }
+            }
+        });
+
+        // Focus management for better accessibility
+        document.querySelectorAll('button, a, select, input').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.classList.add('ring-2', 'ring-primary-500', 'ring-offset-2');
+            });
+            
+            element.addEventListener('blur', function() {
+                this.classList.remove('ring-2', 'ring-primary-500', 'ring-offset-2');
+            });
+        });
+    
+

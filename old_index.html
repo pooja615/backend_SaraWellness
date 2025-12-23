@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sara Wellness | Holistic Health Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #DC143C; /* Crimson red - Nepal's national color */
+            --secondary: #4B0082; /* Indigo - represents spirituality */
+            --accent: #FFD700; /* Gold - represents prosperity */
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --nepal-green: #2E8B57; /* Nepal's lush green landscape */
+            --nepal-blue: #1E90FF; /* Nepal's clear blue sky */
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23DC143C" fill-opacity="0.05" d="M50,50L85,15L85,85L50,50L15,85L15,15L50,50Z"/></svg>');
+            background-size: 200px;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--primary), var(--accent), var(--secondary), var(--primary));
+            background-size: 400%;
+            z-index: -1;
+            border-radius: 35px;
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .btn:hover:before {
+            opacity: 0.2;
+        }
+        
+        .btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(220, 20, 60, 0.3);
+        }
+        
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #666;
+        }
+        
+        /* Nepali Pattern Borders */
+        .nepali-border {
+            position: relative;
+            padding: 20px;
+        }
+        
+        .nepali-border:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 15px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="15" viewBox="0 0 100 15"><path fill="%23DC143C" d="M0,0L5,7.5L0,15L100,15L95,7.5L100,0Z"/></svg>');
+            background-size: 100px 15px;
+            background-repeat: repeat-x;
+        }
+        
+        .nepali-border:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 15px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="15" viewBox="0 0 100 15"><path fill="%23DC143C" d="M0,0L5,7.5L0,15L100,15L95,7.5L100,0Z"/></svg>');
+            background-size: 100px 15px;
+            background-repeat: repeat-x;
+            transform: rotate(180deg);
+        }
+        
+        /* Page Styles */
+        .page {
+            display: none;
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+            position: relative;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(220, 20, 60, 0.85), rgba(75, 0, 130, 0.85)), url('https://images.unsplash.com/photo-1544735716-392fe2489ffc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23FFD700" fill-opacity="0.1" d="M50,50L85,15L85,85L50,50L15,85L15,15L50,50Z"/></svg>');
+            background-size: 200px;
+        }
+        
+        .hero-content {
+            max-width: 700px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--primary);
+            position: relative;
+        }
+        
+        .service-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--primary);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(220, 20, 60, 0.2);
+        }
+        
+        .service-img {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .service-content {
+            padding: 25px;
+        }
+        
+        .service-content h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .service-content p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        /* About Section */
+        .about {
+            background-color: #f9f3e9; /* Light beige */
+            position: relative;
+        }
+        
+        .about:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23DC143C" fill-opacity="0.05" d="M30,30L70,30L70,70L30,70Z"/></svg>');
+            background-size: 100px;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-img {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 5px solid var(--primary);
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            background-color: var(--nepal-blue);
+            color: white;
+            position: relative;
+        }
+        
+        .testimonials:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23FFFFFF" fill-opacity="0.1" d="M50,0L60,40L100,50L60,60L50,100L40,60L0,50L40,40Z"/></svg>');
+            background-size: 150px;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .testimonial-card:before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 5rem;
+            color: var(--primary);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+            border: 2px solid var(--primary);
+        }
+        
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Stats Section */
+        .stats {
+            background-color: var(--nepal-green);
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        
+        .stats:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23FFFFFF" fill-opacity="0.1" d="M0,0L100,0L100,100L0,100Z M20,20L80,20L80,80L20,80Z"/></svg>');
+            background-size: 100px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stat-item {
+            padding: 20px;
+        }
+        
+        .stat-item h3 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: #f0f5f3;
+            position: relative;
+        }
+        
+        .contact:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle fill="%23DC143C" fill-opacity="0.05" cx="50" cy="50" r="40"/></svg>');
+            background-size: 100px;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-info h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-details p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-details i {
+            margin-right: 10px;
+            color: var(--primary);
+            width: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        .chatbot-btn {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(220, 20, 60, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(220, 20, 60, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(220, 20, 60, 0);
+            }
+        }
+        
+        .chatbot-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .chatbot-window {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+        }
+        
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            border-radius: 20px;
+            line-height: 1.4;
+        }
+        
+        .bot-message {
+            background: #f1f1f1;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .user-message {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .chatbot-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+        
+        .chatbot-input button {
+            margin-left: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            color: white;
+            padding: 50px 0 20px;
+            position: relative;
+        }
+        
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--accent);
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .footer-col h4 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-col h4:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        /* Service Detail Pages */
+        .service-detail-hero {
+            background: linear-gradient(rgba(220, 20, 60, 0.85), rgba(75, 0, 130, 0.85));
+            padding: 120px 0 80px;
+            color: white;
+            text-align: center;
+        }
+        
+        .service-content-detail {
+            padding: 50px 0;
+        }
+        
+        .service-process {
+            background-color: #f9f3e9;
+            padding: 50px 0;
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .process-step {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid var(--primary);
+        }
+        
+        .process-step i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .service-benefits {
+            padding: 50px 0;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .benefit-item i {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 10px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .chatbot-window {
+                width: 300px;
+                height: 400px;
+            }
+            
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo"><i class="fas fa-spa"></i>Sara<span>Wellness</span></a>
+            <nav>
+                <ul>
+                    <li><a class="nav-link" data-page="home">Home</a></li>
+                    <li><a class="nav-link" data-page="services">Services</a></li>
+                    <li><a class="nav-link" data-page="about">About</a></li>
+                    <li><a class="nav-link" data-page="testimonials">Testimonials</a></li>
+                    <li><a class="nav-link" data-page="blog">Blog</a></li>
+                    <li><a class="nav-link" data-page="contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Nurture Your Body & Mind</h1>
+                    <p>Discover holistic approaches to wellness that integrate physical health with mental wellbeing for a balanced, fulfilling life.</p>
+                    <a href="#" class="btn" data-page="services">Explore Our Services</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Preview -->
+        <section>
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Wellness Services</h2>
+                    <p>We offer a comprehensive range of services to support your physical and mental health journey.</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-img" style="background-image: url('images/Weight Loss.png');"></div>
+                        <div class="service-content">
+                            <h3>Weight Loss</h3>
+                            <p>Personalized weight loss programs with nutrition planning, exercise guidance, and lifestyle modifications.</p>
+                            <a href="#" class="btn" data-page="weight-loss">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-img" style="background-image: url('images/Hair\ loss\ image.jpeg');"></div>
+                        <div class="service-content">
+                            <h3>Hair Loss</h3>
+                            <p>Comprehensive treatments for hair fall control, scalp health, and hair regrowth using proven techniques.</p>
+                            <a href="#" class="btn" data-page="hair-loss">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-img" style="background-image: url('images/Skin\ care\ image.jpeg');"></div>
+                        <div class="service-content">
+                            <h3>Skin Care</h3>
+                            <p>Customized skincare solutions for acne, aging, pigmentation, and other skin concerns.</p>
+                            <a href="#" class="btn" data-page="skin-care">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3>95%</h3>
+                        <p>Client Satisfaction</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>5,000+</h3>
+                        <p>Clients Served</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>15+</h3>
+                        <p>Years of Experience</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>98%</h3>
+                        <p>Success Rate</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Services Page -->
+    <div id="services" class="page">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Wellness Services</h2>
+                <p>Comprehensive health services for your body and mind.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('images/Weight\ Loss.png');"></div>
+                    <div class="service-content">
+                        <h3>Weight Loss</h3>
+                        <p>Personalized weight loss programs with nutrition planning, exercise guidance, and lifestyle modifications for sustainable results.</p>
+                        <a href="#" class="btn weight-btn" data-page="weight-loss">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('images/Hair\ loss\ image.jpeg');"></div>
+                    <div class="service-content">
+                        <h3>Hair Loss</h3>
+                        <p>Advanced treatments and therapies to prevent hair loss, stimulate regrowth, and improve scalp health for thicker, healthier hair.</p>
+                        <a href="#" class="btn hair-btn" data-page="hair-loss">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('images/Skin\ care\ image.jpeg');"></div>
+                    <div class="service-content">
+                        <h3>Skin Care</h3>
+                        <p>Customized skincare solutions for acne, aging, pigmentation, and other skin concerns using advanced and natural approaches.</p>
+                        <a href="#" class="btn" data-page="skin-care">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('images/Stress\ Management\ image.jpeg');"></div>
+                    <div class="service-content">
+                        <h3>Stress Management</h3>
+                        <p>Comprehensive techniques and therapies to reduce anxiety, improve mental resilience, and promote overall emotional well-being.</p>
+                        <a href="#" class="btn stress-btn" data-page="stress-management">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('images/Pain\ relief.png')"></div>
+                    <div class="service-content">
+                        <h3>Pain Relief</h3>
+                        <p>Effective solutions and therapies to manage chronic pain, reduce inflammation, and improve physical comfort for better quality of life.</p>
+                        <a href="#" class="btn pain-btn" data-page="pain-relief">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('images/Personal\ problem.jpeg');"></div>
+                    <div class="service-content">
+                        <h3>Personal Problems</h3>
+                        <p>Professional, discreet support for sensitive personal issues including sexual health, relationship challenges, and other confidential concerns.</p>
+                        <a href="#" class="btn personal-btn" data-page="personal-problems">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Weight Loss Service Page -->
+    <div id="weight-loss" class="page">
+        <section class="service-detail-hero">
+            <div class="container">
+                <h1>Weight Loss Program</h1>
+                <p>Transform your body and health with our personalized weight management solutions</p>
+            </div>
+        </section>
+
+        <section class="service-content-detail">
+            <div class="container">
+                <div class="about-content">
+                    <div>
+                        <h2>About Our Weight Loss Program</h2>
+                        <p>Our weight loss specialists will create a personalized plan tailored to your body type, lifestyle, and goals, combining nutrition, exercise, and behavioral changes for sustainable results.</p>
+                        <p>We focus on healthy, maintainable weight loss rather than quick fixes that often lead to rebound weight gain. Our approach includes regular monitoring, adjustment of plans as needed, and ongoing support to keep you motivated.</p>
+                        <a href="#" class="btn" data-page="contact">Book Consultation</a>
+                    </div>
+                    <div class="about-img">
+                        <img src="images/Weight Loss.png" alt="Weight Loss Program">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-process">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Weight Loss Process</h2>
+                    <p>We follow a comprehensive approach to ensure sustainable weight loss</p>
+                </div>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>Initial Assessment</h3>
+                        <p>Comprehensive evaluation of your health status, lifestyle, and weight loss goals</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-utensils"></i>
+                        <h3>Nutrition Planning</h3>
+                        <p>Personalized diet plan based on your preferences and nutritional needs</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-running"></i>
+                        <h3>Exercise Guidance</h3>
+                        <p>Customized workout routines suitable for your fitness level</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Progress Tracking</h3>
+                        <p>Regular monitoring and adjustments to ensure continuous progress</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW SECTION: Overweight & Underweight Information -->
+        <section class="service-process" style="background-color: #f0f8ff;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Understanding Weight Issues</h2>
+                    <p>Comprehensive care for both overweight and underweight conditions</p>
+                </div>
+                
+                <div class="about-content">
+                    <div>
+                        <h3>Overweight & Obesity</h3>
+                        <p>Being overweight or obese increases the risk of numerous health problems, including:</p>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>Heart disease and stroke</li>
+                            <li>Type 2 diabetes</li>
+                            <li>High blood pressure</li>
+                            <li>Sleep apnea and breathing problems</li>
+                            <li>Joint pain and mobility issues</li>
+                            <li>Certain types of cancer</li>
+                        </ul>
+                        <p>Our program addresses these risks through sustainable weight management strategies that focus on long-term health improvement rather than quick fixes.</p>
+                    </div>
+                    <div>
+                        <h3>Underweight Issues</h3>
+                        <p>Being underweight can also pose serious health risks, including:</p>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>Nutritional deficiencies</li>
+                            <li>Weakened immune system</li>
+                            <li>Osteoporosis and bone fractures</li>
+                            <li>Fertility issues</li>
+                            <li>Anemia and chronic fatigue</li>
+                            <li>Developmental issues in younger individuals</li>
+                        </ul>
+                        <p>We provide healthy weight gain programs that focus on building muscle mass and proper nutrition rather than empty calories.</p>
+                    </div>
+                </div>
+                
+                <div class="section-title" style="margin-top: 50px;">
+                    <h3>BMI Classification</h3>
+                    <p>Understanding where you fall on the weight spectrum</p>
+                </div>
+                
+                <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center;">
+                        <div style="padding: 20px; background: #e8f5e9; border-radius: 8px;">
+                            <h4 style="color: #2E8B57;">Underweight</h4>
+                            <p>BMI less than 18.5</p>
+                        </div>
+                        <div style="padding: 20px; background: #c8e6c9; border-radius: 8px;">
+                            <h4 style="color: #2E8B57;">Normal Weight</h4>
+                            <p>BMI 18.5 - 24.9</p>
+                        </div>
+                        <div style="padding: 20px; background: #fff9c4; border-radius: 8px;">
+                            <h4 style="color: #ff8f00;">Overweight</h4>
+                            <p>BMI 25 - 29.9</p>
+                        </div>
+                        <div style="padding: 20px; background: #ffecb3; border-radius: 8px;">
+                            <h4 style="color: #f57c00;">Obesity</h4>
+                            <p>BMI 30 or greater</p>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 30px;">
+                        <p>Not sure about your BMI? Contact us for a comprehensive assessment and personalized plan tailored to your specific needs.</p>
+                        <a href="#" class="btn" data-page="contact" style="margin-top: 15px;">Calculate My BMI</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-benefits">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Program Benefits</h2>
+                    <p>What you'll achieve with our weight loss program</p>
+                </div>
+                <div class="benefits-grid">
+                    <div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Sustainable Weight Loss</h3>
+                                <p>Lose weight and keep it off with our maintainable approach</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div> 
+                                <h3>Improved Energy Levels</h3>
+                                <p>Experience increased vitality and reduced fatigue</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Better Health Markers</h3>
+                                <p>Improve blood pressure, cholesterol, and blood sugar levels</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Enhanced Confidence</h3>
+                                <p>Feel better about yourself as you achieve your goals</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Lifestyle Transformation</h3>
+                                <p>Develop healthy habits that last a lifetime</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Personalized Support</h3>
+                                <p>Receive one-on-one guidance from our experts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Hair Loss Service Page -->
+    <div id="hair-loss" class="page">
+        <section class="service-detail-hero">
+            <div class="container">
+                <h1>Hair Loss Treatment</h1>
+                <p>Restore your hair and confidence with our comprehensive hair care solutions</p>
+            </div>
+        </section>
+
+        <section class="service-content-detail">
+            <div class="container">
+                <div class="about-content">
+                    <div>
+                        <h2>About Our Hair Loss Treatment</h2>
+                        <p>Our hair specialists provide comprehensive treatments for hair fall control, scalp health, and hair regrowth using proven techniques. We address the root causes of hair loss rather than just treating symptoms.</p>
+                        <p>Using a combination of advanced therapies, nutritional guidance, and natural remedies, we help you achieve thicker, healthier hair that boosts your confidence and self-esteem.</p>
+                        <a href="#" class="btn" data-page="contact">Book Consultation</a>
+                    </div>
+                    <div class="about-img">
+                        <img src="images/Hair loss image.jpeg" alt="Hair Loss Treatment">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-process">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Hair Restoration Process</h2>
+                    <p>We follow a systematic approach to address hair loss concerns</p>
+                </div>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <i class="fas fa-search"></i>
+                        <h3>Scalp Analysis</h3>
+                        <p>Comprehensive diagnosis to identify the root cause of hair loss</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-prescription"></i>
+                        <h3>Personalized Treatment</h3>
+                        <p>Customized plan based on your specific hair and scalp condition</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-seedling"></i>
+                        <h3>Growth Stimulation</h3>
+                        <p>Therapies to reactivate dormant follicles and promote new growth</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Maintenance Plan</h3>
+                        <p>Long-term strategies to maintain your hair health results</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-benefits">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Treatment Benefits</h2>
+                    <p>What you'll achieve with our hair loss treatment program</p>
+                </div>
+                <div class="benefits-grid">
+                    <div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Reduced Hair Fall</h3>
+                                <p>Significantly decrease daily hair shedding</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>New Hair Growth</h3>
+                                <p>Stimulate regrowth in thinning areas</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Improved Scalp Health</h3>
+                                <p>Address dandruff, itching, and other scalp conditions</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Thicker Hair Texture</h3>
+                                <p>Strengthen existing hair for improved volume</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Enhanced Confidence</h3>
+                                <p>Feel better about your appearance</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Long-Term Results</h3>
+                                <p>Maintain your hair health with our ongoing support</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Skin Care Service Page -->
+    <div id="skin-care" class="page">
+        <section class="service-detail-hero">
+            <div class="container">
+                <h1>Skin Care Solutions</h1>
+                <p>Reveal your natural radiance with our customized skin treatments</p>
+            </div>
+        </section>
+
+        <section class="service-content-detail">
+            <div class="container">
+                <div class="about-content">
+                    <div>
+                        <h2>About Our Skin Care Program</h2>
+                        <p>Our skincare experts provide customized solutions for acne, aging, pigmentation, and other skin concerns using a combination of advanced treatments and natural approaches.</p>
+                        <p>We believe that healthy skin starts with understanding your unique skin type and concerns. Our comprehensive approach addresses both internal and external factors affecting your skin health.</p>
+                        <a href="#" class="btn" data-page="contact">Book Consultation</a>
+                    </div>
+                    <div class="about-img">
+                        <img src="images/Skin care image.jpeg" alt="Skin Care Program">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-process">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Skin Care Process</h2>
+                    <p>We follow a comprehensive approach to achieve healthy, radiant skin</p>
+                </div>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <i class="fas fa-diagnoses"></i>
+                        <h3>Skin Analysis</h3>
+                        <p>Detailed assessment of your skin type, concerns, and goals</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-customize"></i>
+                        <h3>Personalized Plan</h3>
+                        <p>Customized treatment protocol targeting your specific needs</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-spa"></i>
+                        <h3>Treatment Sessions</h3>
+                        <p>Professional treatments to address your skin concerns</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-home"></i>
+                        <h3>Home Care Regimen</h3>
+                        <p>Daily routine recommendations to maintain your results</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-benefits">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Treatment Benefits</h2>
+                    <p>What you'll achieve with our skin care program</p>
+                </div>
+                <div class="benefits-grid">
+                    <div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Clearer Complexion</h3>
+                                <p>Reduce acne, blemishes, and uneven skin tone</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Reduced Signs of Aging</h3>
+                                <p>Minimize wrinkles, fine lines, and sagging skin</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Even Skin Tone</h3>
+                                <p>Diminish hyperpigmentation and dark spots</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Improved Texture</h3>
+                                <p>Smoother, softer skin with refined pores</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Enhanced Radiance</h3>
+                                <p>Restore your skin's natural glow and vitality</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Long-Term Skin Health</h3>
+                                <p>Maintain healthy skin with our ongoing guidance</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Stress Management Service Page -->
+    <div id="stress-management" class="page">
+        <section class="service-detail-hero">
+            <div class="container">
+                <h1>Stress Management Program</h1>
+                <p>Find balance and peace in your daily life with our comprehensive stress solutions</p>
+            </div>
+        </section>
+
+        <section class="service-content-detail">
+            <div class="container">
+                <div class="about-content">
+                    <div>
+                        <h2>About Our Stress Management Program</h2>
+                        <p>Our stress management program includes counseling, relaxation techniques, mindfulness practices, and lifestyle adjustments to help you manage stress effectively and improve your overall quality of life.</p>
+                        <p>We take a holistic approach to stress management, addressing the physical, mental, and emotional aspects of stress to help you develop resilience and coping strategies for long-term wellbeing.</p>
+                        <a href="#" class="btn" data-page="contact">Book Consultation</a>
+                    </div>
+                    <div class="about-img">
+                        <img src="images/Stress Management image.jpeg" alt="Stress Management Program">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-process">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Stress Management Process</h2>
+                    <p>We follow a comprehensive approach to help you manage stress effectively</p>
+                </div>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h3>Assessment</h3>
+                        <p>Identify your stress triggers and how they affect your life</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-brain"></i>
+                        <h3>Technique Learning</h3>
+                        <p>Learn proven stress reduction methods and coping strategies</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-heart"></i>
+                        <h3>Practice Sessions</h3>
+                        <p>Guided practice of relaxation and mindfulness techniques</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-balance-scale"></i>
+                        <h3>Lifestyle Integration</h3>
+                        <p>Incorporate stress management into your daily routine</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-benefits">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Program Benefits</h2>
+                    <p>What you'll achieve with our stress management program</p>
+                </div>
+                <div class="benefits-grid">
+                    <div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Reduced Anxiety</h3>
+                                <p>Experience less worry and nervousness in daily life</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Improved Sleep</h3>
+                                <p>Enjoy better quality rest and waking refreshed</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Enhanced Focus</h3>
+                                <p>Improve concentration and mental clarity</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Better Relationships</h3>
+                                <p>Communicate more effectively with reduced tension</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Increased Resilience</h3>
+                                <p>Handle challenges with greater ease and adaptability</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Overall Wellbeing</h3>
+                                <p>Experience improved physical and mental health</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Pain Relief Service Page -->
+    <div id="pain-relief" class="page">
+        <section class="service-detail-hero">
+            <div class="container">
+                <h1>Pain Relief Therapy</h1>
+                <p>Find relief from chronic pain and improve your quality of life</p>
+            </div>
+        </section>
+
+        <section class="service-content-detail">
+            <div class="container">
+                <div class="about-content">
+                    <div>
+                        <h2>About Our Pain Relief Program</h2>
+                        <p>Our pain relief program offers natural and holistic approaches to manage and relieve chronic pain, improving your quality of life through proven techniques that address the root causes of discomfort.</p>
+                        <p>We combine physical therapies, lifestyle modifications, and mind-body techniques to create a comprehensive pain management plan tailored to your specific needs and conditions.</p>
+                        <a href="#" class="btn" data-page="contact">Book Consultation</a>
+                    </div>
+                    <div class="about-img">
+                        <img src="images/Pain relief.png" alt="Pain Relief Program">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-process">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Pain Relief Process</h2>
+                    <p>We follow a comprehensive approach to help you manage pain effectively</p>
+                </div>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <i class="fas fa-search"></i>
+                        <h3>Pain Assessment</h3>
+                        <p>Thorough evaluation to understand your pain sources and patterns</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-cogs"></i>
+                        <h3>Treatment Plan</h3>
+                        <p>Customized approach targeting your specific pain issues</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <h3>Therapy Sessions</h3>
+                        <p>Hands-on treatments to alleviate pain and improve function</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-user-graduate"></i>
+                        <h3>Self-Management Training</h3>
+                        <p>Learn techniques to manage pain flare-ups independently</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-benefits">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Program Benefits</h2>
+                    <p>What you'll achieve with our pain relief program</p>
+                </div>
+                <div class="benefits-grid">
+                    <div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Reduced Pain Levels</h3>
+                                <p>Experience significant decrease in daily discomfort</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Improved Mobility</h3>
+                                <p>Move more freely with less restriction</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Better Sleep Quality</h3>
+                                <p>Rest more comfortably without pain disruptions</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Reduced Medication Dependence</h3>
+                                <p>Decrease reliance on pain medications</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Enhanced Daily Function</h3>
+                                <p>Perform daily activities with greater ease</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Long-Term Management Skills</h3>
+                                <p>Learn techniques to maintain your progress</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Personal Problems Service Page -->
+    <div id="personal-problems" class="page">
+        <section class="service-detail-hero">
+            <div class="container">
+                <h1>Personal Problems Counseling</h1>
+                <p>Professional, discreet support for sensitive personal issues in a safe environment</p>
+            </div>
+        </section>
+
+        <section class="service-content-detail">
+            <div class="container">
+                <div class="about-content">
+                    <div>
+                        <h2>About Our Personal Problems Service</h2>
+                        <p>We provide professional, discreet support for sensitive personal issues including sexual health, relationship challenges, and other confidential concerns in a safe, non-judgmental environment.</p>
+                        <p>Our approach is compassionate, confidential, and solution-focused. We understand that discussing personal issues requires trust and sensitivity, and we prioritize creating a safe space where you can openly address your concerns.</p>
+                        <a href="#" class="btn" data-page="contact">Book Consultation</a>
+                    </div>
+                    <div class="about-img">
+                        <img src="images/Personal problem.jpeg" alt="Personal Problems Counseling">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-process">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Counseling Process</h2>
+                    <p>We follow a respectful, confidential approach to address personal concerns</p>
+                </div>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Confidential Consultation</h3>
+                        <p>Private discussion to understand your concerns in a safe space</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>Issue Assessment</h3>
+                        <p>Comprehensive evaluation of your specific situation</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Solution Development</h3>
+                        <p>Creating personalized strategies to address your concerns</p>
+                    </div>
+                    <div class="process-step">
+                        <i class="fas fa-hands-helping"></i>
+                        <h3>Ongoing Support</h3>
+                        <p>Continued guidance as you implement solutions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-benefits">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Service Benefits</h2>
+                    <p>What you'll achieve with our personal problems counseling</p>
+                </div>
+                <div class="benefits-grid">
+                    <div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Confidential Support</h3>
+                                <p>Discuss sensitive issues in a private, secure environment</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Expert Guidance</h3>
+                                <p>Receive advice from experienced professionals</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Practical Solutions</h3>
+                                <p>Develop actionable strategies for your concerns</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Improved Relationships</h3>
+                                <p>Enhance communication and intimacy in your relationships</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Reduced Anxiety</h3>
+                                <p>Alleviate worry about sensitive personal issues</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Empowerment</h3>
+                                <p>Gain confidence in managing personal challenges</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section class="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2>About Sara Wellness</h2>
+                    <p>Your trusted partner in health and wellness journey.</p>
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Our Mission</h3>
+                        <p>At Sara Wellness, we believe that true health comes from nurturing both the body and mind. Our integrated approach addresses physical fitness, nutrition, mental health, and emotional wellbeing as interconnected aspects of whole-person wellness.</p>
+                        <p>Founded in 2008, our center has helped over 5,000 clients achieve their health goals through personalized programs, expert guidance, and a supportive community environment.</p>
+                        <p>Our team of certified professionals includes therapists, nutritionists, wellness coaches, and meditation instructors who are passionate about helping you live your healthiest, happiest life.</p>
+                        <a href="#" class="btn" data-page="contact">Get in Touch</a>
+                    </div>
+                    <div class="about-img">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Wellness Image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3>15+</h3>
+                        <p>Years of Experience</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>5,000+</h3>
+                        <p>Clients Served</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>95%</h3>
+                        <p>Success Rate</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>25+</h3>
+                        <p>Professional Staff</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Testimonials Page -->
+    <div id="testimonials" class="page">
+        <section class="testimonials">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Client Testimonials</h2>
+                    <p>Hear from people who have transformed their lives through our wellness programs.</p>
+                </div>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            <p>"I lost 25kg in 6 months with Sara Wellness's weight management program. Their personalized approach made all the difference!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Client">
+                            </div>
+                            <div class="author-info">
+                                <h4>Sophia Williams</h4>
+                                <p>Weight Loss Program</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            <p>"After struggling with hair loss for years, the treatments at Sara Wellness helped regrow my hair and restored my confidence."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client">
+                            </div>
+                            <div class="author-info">
+                                <h4>Michael Johnson</h4>
+                                <p>Hair Loss Treatment</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            <p>"The skincare program completely transformed my complexion. I've never felt more comfortable in my own skin!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Client">
+                            </div>
+                            <div class="author-info">
+                                <h4>Sarah Thompson</h4>
+                                <p>Skin Care Program</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            <p>"I came to Sara Wellness with chronic sleep issues. Their sleep improvement program changed my life. I now sleep through the night and wake up feeling refreshed."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Client">
+                            </div>
+                            <div class="author-info">
+                                <h4>David Wilson</h4>
+                                <p>Sleep Improvement Program</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            <p>"The stress management techniques I learned at Sara Wellness have transformed how I handle pressure at work and home. I'm more productive and much happier."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Client">
+                            </div>
+                            <div class="author-info">
+                                <h4>Emma Roberts</h4>
+                                <p>Stress Management Program</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            <p>"As a busy professional, I neglected my health for years. Sara Wellness helped me develop sustainable habits that keep me physically and mentally fit despite my hectic schedule."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="https://randomuser.me/api/portraits/men/56.jpg" alt="Client">
+                            </div>
+                            <div class="author-info">
+                                <h4>James Anderson</h4>
+                                <p>Life Coaching Program</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Blog Page -->
+    <div id="blog" class="page">
+        <div class="container">
+            <div class="section-title">
+                <h2>Wellness Blog</h2>
+                <p>Tips, insights, and latest research on physical and mental health.</p>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-img" style="background-image: url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="blog-content">
+                        <div class="blog-meta">June 15, 2023 | Mental Health</div>
+                        <h3>5 Meditation Techniques for Beginners</h3>
+                        <p>Starting a meditation practice can feel daunting, but these simple techniques make it accessible for everyone.</p>
+                        <a href="#" class="btn">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-img" style="background-image: url('https://images.unsplash.com/photo-1517433670267-08bbd4be890f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="blog-content">
+                        <div class="blog-meta">May 28, 2023 | Nutrition</div>
+                        <h3>Foods That Boost Your Mood Naturally</h3>
+                        <p>Discover how certain foods can positively impact your brain chemistry and emotional wellbeing.</p>
+                        <a href="#" class="btn">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-img" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="blog-content">
+                        <div class="blog-meta">May 10, 2023 | Mental Health</div>
+                        <h3>How to Manage Anxiety in Daily Life</h3>
+                        <p>Practical strategies to reduce anxiety and improve your mental health in everyday situations.</p>
+                        <a href="#" class="btn">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="contact">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Get In Touch</h2>
+                    <p>Reach out to start your wellness journey today.</p>
+                </div>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <div class="contact-details">
+                            <p><i class="fas fa-map-marker-alt"></i> Kalanki, Kathmandu, Nepal</p>
+                            <p><i class="fas fa-phone"></i> +977-15225050, 5225181, 5225167</p>
+                            <p><i class="fas fa-mobile-alt"></i> +977-9851105234</p>
+                            <p><i class="fas fa-whatsapp-alt"></i> +977-9808500141</p>
+                            <p><i class="fas fa-envelope"></i> Pandeyshanker@yahoo.com</p>
+                            <p><i class="fas fa-clock"></i> Sunday-Friday: 24/7 hrs, Saturday: 9am-4pm</p>
+                        </div>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <form>
+                            <input type="text" placeholder="Your Name" required>
+                            <input type="email" placeholder="Your Email" required>
+                            <input type="tel" placeholder="Your Phone">
+                            <select>
+                                <option value="" disabled selected>Select Service</option>
+                                <option value="weight-loss">Weight Loss</option>
+                                <option value="hair-loss">Hair Loss</option>
+                                <option value="skin-care">Skin Care</option>
+                                <option value="stress-management">Stress Management</option>
+                                <option value="Pain Relief">Pain Relief</option>
+                                <option value="Personal Problems">Personal Problems</option>
+                            </select>
+                            <textarea placeholder="How can we help you?" required></textarea>
+                            <button type="submit" class="btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-btn" id="chatbot-btn">
+            <i class="fas fa-comment-medical"></i>
+        </div>
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                <h3>Sara Wellness Assistant</h3>
+                <span id="chatbot-close" style="cursor: pointer;"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot-message">
+                    Hello! I'm Sara, your wellness assistant. You can ask me anything about our services: weight loss, hair loss, skin care, stress management, or general problems.
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="user-input" placeholder="Type your question here...">
+                <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h4>Sara Wellness</h4>
+                    <p>Holistic approaches to wellness that integrate physical health with mental wellbeing for a balanced, fulfilling life.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#" data-page="weight-loss">Weight Loss</a></li>
+                        <li><a href="#" data-page="hair-loss">Hair Loss</a></li>
+                        <li><a href="#" data-page="skin-care">Skin Care</a></li>
+                        <li><a href="#" data-page="stress-management">Stress Management</a></li>
+                        <li><a href="#" data-page="pain-relief">Pain relief</a></li>
+                        <li><a href="#" data-page="personal-problems">Personal Problems</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" data-page="home">Home</a></li>
+                        <li><a href="#" data-page="services">Services</a></li>
+                        <li><a href="#" data-page="about">About</a></li>
+                        <li><a href="#" data-page="testimonials">Testimonials</a></li>
+                        <li><a href="#" data-page="blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to our newsletter for wellness tips and updates.</p>
+                    <form>
+                        <input type="email" placeholder="Your Email" required>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Sara Wellness. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // Page Navigation - YEI EXISTING CODE CHA
+    document.addEventListener('DOMContentLoaded', function() {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        
+        // Show specific page and hide others
+        function showPage(pageId) {
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Add click event to navigation links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const pageId = this.getAttribute('data-page');
+                showPage(pageId);
+            });
+        });
+        
+        // Add click event to other buttons with data-page attribute
+        const pageButtons = document.querySelectorAll('[data-page]');
+        pageButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const pageId = this.getAttribute('data-page');
+                showPage(pageId);
+            });
+        });
+        
+        // Chatbot functionality - YEI EXISTING CODE CHA
+        const chatbotBtn = document.getElementById('chatbot-btn');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const chatMessages = document.getElementById('chatbot-messages');
+        
+        // Open chatbot
+        chatbotBtn.addEventListener('click', function() {
+            chatbotWindow.style.display = 'flex';
+        });
+        
+        // Close chatbot
+        chatbotClose.addEventListener('click', function() {
+            chatbotWindow.style.display = 'none';
+        });
+        
+        // Send message
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            userInput.value = '';
+            
+            // Generate bot response after a short delay
+            setTimeout(() => {
+                const response = generateResponse(message);
+                addMessage(response, 'bot');
+            }, 1000);
+        }
+        
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Add message to chat
+        function addMessage(text, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.classList.add(sender + '-message');
+            messageElement.textContent = text;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Generate bot response
+        function generateResponse(message) {
+            message = message.toLowerCase();
+            
+            // Weight loss responses
+            if (message.includes('weight') || message.includes('diet') || message.includes('obese') || message.includes('fat')) {
+                return "Our weight loss program includes personalized diet plans, exercise routines, and lifestyle modifications. We focus on sustainable weight loss rather than quick fixes.";
+            }
+            
+            // Hair loss responses
+            if (message.includes('hair') || message.includes('bald') || message.includes('scalp')) {
+                return "We offer comprehensive hair loss treatments including scalp therapies, nutritional guidance, and natural remedies to promote hair growth and reduce hair fall.";
+            }
+            
+            // Skin care responses
+            if (message.includes('skin') || message.includes('acne') || message.includes('pimple') || message.includes('glow')) {
+                return "Our skin care treatments address various concerns like acne, aging, pigmentation, and dryness. We use a combination of advanced treatments and natural approaches.";
+            }
+            
+            // Stress management responses
+            if (message.includes('stress') || message.includes('anxiety') || message.includes('tension') || message.includes('worry')) {
+                return "Our stress management program includes counseling, relaxation techniques, mindfulness practices, and lifestyle adjustments to help you manage stress effectively.";
+            }
+            
+            //Pain Relief
+            if (message.includes('pain') || message.includes('Joints pain') || message.imcludes('Sprain') || message.includes('Shoulder Pain') || message.includes('Muscles pain') || message.includes('stomach ache')) {
+                return "Our pain relief service offers natural and holistic approaches to manage and relieve chronic pain, improving your quality of life through proven techniques.";
+            }
+            // Personal problems responses
+            if (message.includes('Personal') || message.includes('health') || message.includes('problem') || message.includes('issue')) {
+                return "We address various general health problems including digestive issues, sleep disorders, chronic fatigue, and pain management through holistic approaches.";
+            }
+            
+            // Appointment responses
+            if (message.includes('appointment') || message.includes('schedule') || message.includes('book') || message.includes('meet')) {
+                return "You can book an appointment by calling us at +977-15225050 or visiting our contact page to send us a message. Our staff will get back to you within 24 hours.";
+            }
+            
+            // Price responses
+            if (message.includes('price') || message.includes('cost') || message.includes('fee') || message.includes('charge')) {
+                return "Our services have different pricing based on the treatment plan. We offer affordable packages and consultations. Please contact us for specific pricing details.";
+            }
+            
+            // General responses
+            if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
+                return "Hello! How can I help you with your wellness journey today?";
+            }
+            
+            if (message.includes('thank')) {
+                return "You're welcome! Is there anything else you'd like to know about our services?";
+            }
+            
+            // Default response
+            return "Thank you for your question. I'm here to provide information about our wellness services. For more specific queries, you can contact us directly.";
+        }
+
+        // ===============================================
+        // YO MATRA NEW CODE ADD GARNU PARCHA - START
+        // ===============================================
+
+        // API Base URL
+        const API_BASE_URL = 'http://localhost:5000/api';
+
+        // Contact Form Submission
+        const contactForm = document.querySelector('.contact-form form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const data = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    service: formData.get('service'),
+                    message: formData.get('message')
+                };
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/contacts`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        alert('Message sent successfully! We will get back to you soon.');
+                        this.reset();
+                    } else {
+                        alert('Failed to send message. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        }
+
+        // Appointment Booking
+        const appointmentButtons = document.querySelectorAll('[data-page="contact"]');
+        appointmentButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Store the service type for appointment booking
+                const service = this.closest('.service-card') ? 
+                    this.closest('.service-card').querySelector('h3').textContent : 
+                    'General Consultation';
+                localStorage.setItem('selectedService', service);
+            });
+        });
+
+        
+    }); 
+</script>
+</body>
+</html>

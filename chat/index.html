@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sara Wellness Chatbot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1200px;
+            height: 90vh;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .chat-container {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-right: 1px solid #e9ecef;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #495057;
+            font-size: 1.1rem;
+        }
+        
+        .common-problems {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .common-problems li {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .common-problems li:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .social-media {
+            margin-bottom: 20px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            color: #667eea;
+            font-size: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+        }
+        
+        .contact-info {
+            margin-top: auto;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        
+        .contact-info p {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: #495057;
+        }
+        
+        .call-btn {
+            display: block;
+            text-align: center;
+            background: #667eea;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        
+        .call-btn:hover {
+            background: #5a6fd5;
+        }
+        
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow: hidden;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.4;
+            position: relative;
+        }
+        
+        .bot-message {
+            align-self: flex-start;
+            background: #f1f3f5;
+            color: #495057;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .user-message {
+            align-self: flex-end;
+            background: #667eea;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .input-area {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .input-buttons {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        
+        .input-button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            color: #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+        }
+        
+        .input-button:hover {
+            background: #f1f3f5;
+        }
+        
+        .message-input {
+            flex: 1;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .send-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .send-btn:hover {
+            background: #5a6fd5;
+        }
+        
+        .symptom-indicator {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .container {
+                height: 95vh;
+            }
+            
+            .message {
+                max-width: 85%;
+            }
+        }
+        
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            background: #f1f3f5;
+            color: #495057;
+            padding: 12px 18px;
+            border-radius: 18px;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #6c757d;
+            opacity: 0.6;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+        
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+        
+        /* Loading screen styles */
+        .loading-container {
+            text-align: center;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+        
+        .loading-logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .loading-text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .redirect-message {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Voice recording animation */
+        .pulse-recording {
+            animation: pulse-recording 1.5s infinite;
+        }
+        
+        @keyframes pulse-recording {
+            0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+        }
+        
+        /* Media message styles */
+        .media-message {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            max-width: 70%;
+            align-self: flex-end;
+        }
+        
+        .media-container {
+            background: #667eea;
+            border-radius: 18px;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .media-caption {
+            font-size: 0.8rem;
+            color: white;
+            margin-top: 5px;
+            text-align: right;
+        }
+        
+        .audio-player {
+            width: 250px;
+            height: 40px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+        }
+        
+        .audio-player audio {
+            width: 100%;
+            outline: none;
+        }
+        
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+        }
+        
+        /* Recording timer */
+        .recording-timer {
+            display: none;
+            align-items: center;
+            color: #dc3545;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-container" id="loadingScreen">
+        <div class="loading-logo">🌿 Sara</div>
+        <div class="loading-text">Welcome to Sara Wellness Chatbot</div>
+        <div class="spinner"></div>
+        <div class="redirect-message">Initializing your wellness journey...</div>
+    </div>
+
+    <!-- Main Chat Interface (initially hidden) -->
+    <div class="container" style="display: none;" id="chatInterface">
+        <header>
+            <div class="logo">🌿 Sara</div>
+            <div class="tagline">Your Personal Wellness Assistant</div>
+        </header>
+        
+        <div class="chat-container">
+            <div class="sidebar">
+                <h3 class="sidebar-title">Common Health Concerns</h3>
+                <ul class="common-problems">
+                    <li data-problem="headache">Headache or migraine</li>
+                    <li data-problem="anxiety">Anxiety or stress</li>
+                    <li data-problem="sleep">Sleep problems</li>
+                    <li data-problem="digestion">Digestive issues</li>
+                    <li data-problem="backpain">Back or neck pain</li>
+                    <li data-problem="fatigue">Fatigue or low energy</li>
+                </ul>
+                
+                <div class="social-media">
+                    <h3 class="sidebar-title">Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="imo://" class="social-icon">
+                            <i class="fab fa-facebook-messenger"></i>
+                        </a>
+                        <a href="https://www.instagram.com/" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.twitter.com/" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="contact-info">
+                    <p>If you can't type or need immediate help:</p>
+                    <a href="tel:+1234567890" class="call-btn">
+                        <i class="fas fa-phone"></i> Call Now
+                    </a>
+                </div>
+            </div>
+            
+            <div class="chat-area">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot-message">
+                        Hello! Welcome to Sara Wellness Chatbot. I'm here to help you with your wellness journey. If you have any problems or questions, feel free to chat with me directly or contact us through our social media channels.
+                    </div>
+                    <div class="message bot-message">
+                        You can now send voice messages and images by using the microphone and image buttons next to the text input.
+                    </div>
+                </div>
+                
+                <div class="symptom-indicator" id="symptomIndicator">
+                    Symptoms asked: 0/3
+                </div>
+                
+                <div class="input-area">
+                    <div class="input-buttons">
+                        <button class="input-button" id="imageButton" title="Upload image">
+                            <i class="fas fa-image"></i>
+                        </button>
+                        <button class="input-button" id="voiceButton" title="Record voice message">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <div class="recording-timer" id="recordingTimer">00:00</div>
+                    </div>
+                    <input type="text" class="message-input" id="messageInput" placeholder="Type your health concern here...">
+                    <button class="send-btn" id="sendButton">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                </div>
+                
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show loading screen first, then transition to chat interface
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.getElementById('loadingScreen').style.display = 'none';
+                document.getElementById('chatInterface').style.display = 'flex';
+                initializeChatbot();
+            }, 2000);
+        });
+
+        function initializeChatbot() {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageInput = document.getElementById('messageInput');
+            const sendButton = document.getElementById('sendButton');
+            const symptomIndicator = document.getElementById('symptomIndicator');
+            const typingIndicator = document.getElementById('typingIndicator');
+            const commonProblems = document.querySelectorAll('.common-problems li');
+            const imageButton = document.getElementById('imageButton');
+            const imageInput = document.getElementById('imageInput');
+            const voiceButton = document.getElementById('voiceButton');
+            const recordingTimer = document.getElementById('recordingTimer');
+            
+            let symptomCount = 0;
+            let currentProblem = '';
+            let conversationStage = 'problem'; // problem -> symptoms -> solution
+            let mediaRecorder;
+            let audioChunks = [];
+            let recordingInterval;
+            let recordingSeconds = 0;
+            
+            // Focus input
+            messageInput.focus();
+            
+            // Send message on button click
+            sendButton.addEventListener('click', sendMessage);
+            
+            // Send message on Enter key
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Image upload functionality
+            imageButton.addEventListener('click', function() {
+                imageInput.click();
+            });
+            
+            imageInput.addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const file = e.target.files[0];
+                    if (file.type.match('image.*')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            // Create media message with image
+                            const mediaMessage = document.createElement('div');
+                            mediaMessage.classList.add('media-message');
+                            
+                            const mediaContainer = document.createElement('div');
+                            mediaContainer.classList.add('media-container');
+                            
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.classList.add('image-preview');
+                            
+                            const caption = document.createElement('div');
+                            caption.classList.add('media-caption');
+                            caption.textContent = 'Image uploaded: ' + file.name;
+                            
+                            mediaContainer.appendChild(img);
+                            mediaMessage.appendChild(mediaContainer);
+                            mediaMessage.appendChild(caption);
+                            
+                            chatMessages.appendChild(mediaMessage);
+                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                            
+                            // Bot response
+                            setTimeout(() => {
+                                showTyping();
+                                
+                                setTimeout(() => {
+                                    hideTyping();
+                                    addMessage("Thank you for sharing this image. I'll keep it for reference as we discuss your concerns.", 'bot');
+                                }, 1500);
+                            }, 500);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+            
+            // Voice recording functionality
+            voiceButton.addEventListener('mousedown', startRecording);
+            voiceButton.addEventListener('mouseup', stopRecording);
+            voiceButton.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                startRecording();
+            });
+            voiceButton.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                stopRecording();
+            });
+            
+            // Common problem selection
+            commonProblems.forEach(problem => {
+                problem.addEventListener('click', function() {
+                    currentProblem = this.getAttribute('data-problem');
+                    const problemText = this.textContent;
+                    
+                    // Add user message
+                    addMessage(problemText, 'user');
+                    
+                    // Bot responds based on problem
+                    setTimeout(() => {
+                        showTyping();
+                        
+                        setTimeout(() => {
+                            hideTyping();
+                            let response = '';
+                            
+                            switch(currentProblem) {
+                                case 'headache':
+                                    response = "I understand you're experiencing headaches. How long have you had this headache?";
+                                    break;
+                                case 'anxiety':
+                                    response = "I see you're dealing with anxiety or stress. When did these feelings start?";
+                                    break;
+                                case 'sleep':
+                                    response = "Sleep problems can be challenging. How many hours of sleep are you getting?";
+                                    break;
+                                case 'digestion':
+                                    response = "Digestive issues can be uncomfortable. What specific symptoms are you experiencing?";
+                                    break;
+                                case 'backpain':
+                                    response = "Back or neck pain can be difficult. Where exactly is the pain located?";
+                                    break;
+                                case 'fatigue':
+                                    response = "Fatigue and low energy can affect your daily life. How long have you been feeling this way?";
+                                    break;
+                            }
+                            
+                            addMessage(response, 'bot');
+                            symptomCount = 1;
+                            updateSymptomIndicator();
+                            conversationStage = 'symptoms';
+                        }, 1500);
+                    }, 500);
+                });
+            });
+            
+            function startRecording() {
+                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    navigator.mediaDevices.getUserMedia({ audio: true })
+                        .then(function(stream) {
+                            audioChunks = [];
+                            mediaRecorder = new MediaRecorder(stream);
+                            
+                            mediaRecorder.ondataavailable = function(event) {
+                                audioChunks.push(event.data);
+                            };
+                            
+                            mediaRecorder.onstop = function() {
+                                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                                sendVoiceMessage(audioBlob);
+                                stream.getTracks().forEach(track => track.stop());
+                            };
+                            
+                            mediaRecorder.start();
+                            voiceButton.classList.add('pulse-recording');
+                            voiceButton.innerHTML = '<i class="fas fa-stop"></i>';
+                            voiceButton.style.color = '#dc3545';
+                            
+                            // Start timer
+                            recordingSeconds = 0;
+                            recordingTimer.style.display = 'flex';
+                            updateTimer();
+                            recordingInterval = setInterval(updateTimer, 1000);
+                        })
+                        .catch(function(err) {
+                            console.error("Error accessing microphone:", err);
+                            addMessage("Microphone access denied. Please allow microphone access to send voice messages.", 'bot');
+                        });
+                } else {
+                    addMessage("Your browser doesn't support voice recording. Please try a modern browser like Chrome or Firefox.", 'bot');
+                }
+            }
+            
+            function stopRecording() {
+                if (mediaRecorder && mediaRecorder.state === 'recording') {
+                    mediaRecorder.stop();
+                    voiceButton.classList.remove('pulse-recording');
+                    voiceButton.innerHTML = '<i class="fas fa-microphone"></i>';
+                    voiceButton.style.color = '#667eea';
+                    
+                    // Stop timer
+                    clearInterval(recordingInterval);
+                    recordingTimer.style.display = 'none';
+                }
+            }
+            
+            function updateTimer() {
+                recordingSeconds++;
+                const minutes = Math.floor(recordingSeconds / 60).toString().padStart(2, '0');
+                const seconds = (recordingSeconds % 60).toString().padStart(2, '0');
+                recordingTimer.textContent = `${minutes}:${seconds}`;
+            }
+            
+            function sendVoiceMessage(audioBlob) {
+                // Create media message with audio player
+                const mediaMessage = document.createElement('div');
+                mediaMessage.classList.add('media-message');
+                
+                const mediaContainer = document.createElement('div');
+                mediaContainer.classList.add('media-container');
+                
+                const audio = document.createElement('audio');
+                audio.controls = true;
+                audio.src = URL.createObjectURL(audioBlob);
+                
+                const audioPlayer = document.createElement('div');
+                audioPlayer.classList.add('audio-player');
+                audioPlayer.appendChild(audio);
+                
+                const caption = document.createElement('div');
+                caption.classList.add('media-caption');
+                caption.textContent = 'Voice message';
+                
+                mediaContainer.appendChild(audioPlayer);
+                mediaMessage.appendChild(mediaContainer);
+                mediaMessage.appendChild(caption);
+                
+                chatMessages.appendChild(mediaMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Bot response
+                setTimeout(() => {
+                    showTyping();
+                    
+                    setTimeout(() => {
+                        hideTyping();
+                        addMessage("Thank you for your voice message. I've received it and will consider this as part of our conversation.", 'bot');
+                    }, 1500);
+                }, 500);
+            }
+            
+            function sendMessage() {
+                const message = messageInput.value.trim();
+                
+                if (message === '') return;
+                
+                // Add user message
+                addMessage(message, 'user');
+                messageInput.value = '';
+                
+                // Bot response logic
+                setTimeout(() => {
+                    showTyping();
+                    
+                    setTimeout(() => {
+                        hideTyping();
+                        let response = '';
+                        
+                        if (conversationStage === 'problem') {
+                            currentProblem = message.toLowerCase();
+                            response = "Thank you for sharing. Could you describe the severity of your symptoms on a scale of 1 to 10?";
+                            conversationStage = 'symptoms';
+                            symptomCount = 1;
+                        } else if (conversationStage === 'symptoms') {
+                            symptomCount++;
+                            
+                            if (symptomCount === 2) {
+                                response = "I see. How long have you been experiencing these symptoms?";
+                            } else if (symptomCount === 3) {
+                                response = "Thank you. Have you noticed any triggers or patterns related to this problem?";
+                            } else {
+                                // After 3 symptoms, provide solution
+                                response = getSolution(currentProblem);
+                                conversationStage = 'solution';
+                                symptomIndicator.style.display = 'none';
+                            }
+                        } else if (conversationStage === 'solution') {
+                            response = "Is there anything else you'd like to know about your condition or would you like to discuss another concern?";
+                            conversationStage = 'problem';
+                            symptomCount = 0;
+                            symptomIndicator.style.display = 'block';
+                        }
+                        
+                        addMessage(response, 'bot');
+                        updateSymptomIndicator();
+                    }, 1500);
+                }, 500);
+            }
+            
+            function addMessage(text, sender) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                messageElement.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
+                messageElement.textContent = text;
+                
+                chatMessages.appendChild(messageElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            function showTyping() {
+                typingIndicator.style.display = 'flex';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            function hideTyping() {
+                typingIndicator.style.display = 'none';
+            }
+            
+            function updateSymptomIndicator() {
+                if (conversationStage === 'symptoms') {
+                    symptomIndicator.textContent = `Symptoms asked: ${symptomCount}/3`;
+                }
+            }
+            
+            function getSolution(problem) {
+                const solutions = {
+                    headache: "For headaches, try resting in a quiet, dark room, applying a cool compress to your forehead, staying hydrated, and considering over-the-counter pain relief if appropriate. If headaches persist or are severe, consult a healthcare provider.",
+                    anxiety: "For anxiety, practice deep breathing exercises, mindfulness meditation, or progressive muscle relaxation. Regular physical activity and limiting caffeine can also help. If anxiety is interfering with daily life, consider speaking with a mental health professional.",
+                    sleep: "For better sleep, maintain a consistent sleep schedule, create a relaxing bedtime routine, limit screen time before bed, and ensure your sleep environment is comfortable. Avoid caffeine and large meals close to bedtime.",
+                    digestion: "For digestive issues, try eating smaller meals, staying hydrated, increasing fiber intake gradually, and avoiding trigger foods. Probiotics and gentle exercise may also help. Consult a doctor if symptoms persist.",
+                    backpain: "For back pain, practice good posture, apply heat or cold packs, and try gentle stretching. Avoid heavy lifting and consider over-the-counter pain relief if appropriate. If pain is severe or persistent, see a healthcare provider.",
+                    fatigue: "For fatigue, ensure you're getting adequate sleep, eating a balanced diet, staying hydrated, and engaging in regular physical activity. Consider stress management techniques and consult a doctor if fatigue persists.",
+                    default: "Based on your symptoms, I recommend rest, hydration, and monitoring your condition. If symptoms persist or worsen, please consult with a healthcare professional for personalized advice."
+                };
+                
+                return solutions[problem] || solutions['default'];
+            }
+        }
+    </script>
+</body>
+</html>
